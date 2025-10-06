@@ -1,0 +1,100 @@
+# WhatsApp Receipt Capture - Git Ignore File
+
+# Environment Variables & API Keys
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*.pem
+
+# Node.js Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Generated Image Directories (exclude downloaded images)
+pitch-deck-images/
+pitch-deck-images-demo/
+storage/receipts/
+storage/media/
+downloads/
+images/
+
+# Build & Distribution
+dist/
+build/
+.next/
+out/
+
+# Runtime & Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+.DS_Store
+
+# IDE & Editor Files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Generated Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Docker
+.docker/
+docker-compose.override.yml
+*.dockerfile.dev
+
+# Google Cloud & API Credentials
+service-account-key.json
+gcp-credentials.json
+*-credentials.json
+
+# WhatsApp Business API
+whatsapp-business-credentials.json
+
+# Testing & Coverage
+coverage/
+.nyc_output/
+.coverage
+*.lcov
+
+# Temporary Files
+tmp/
+temp/
+.tmp/
+.cache/
+
+# Database Files
+*.db
+*.sqlite
+*.sqlite3
+
+# Production Deployment
+.vercel/
+.netlify/
+
+# Keep structure files but ignore content
+storage/.gitkeep
+!storage/.gitkeep
+
+# Keep demo structure but exclude generated content
+!pitch-deck-images-demo/.gitkeep
+!pitch-deck-images/.gitkeep
