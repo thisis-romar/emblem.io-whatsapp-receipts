@@ -1,0 +1,80 @@
+{
+  "Report": {
+    "Recommendations": [
+      "Consider using consistent AI attribution in commit authors",
+      "Track AI model versions used for development history",
+      "Document AI assistance patterns for workflow optimization"
+    ],
+    "Statistics": {
+      "TotalCommits": 3,
+      "PossibleAICommits": 3,
+      "AIAssistedCommits": 0,
+      "AIPercentage": 0.0,
+      "HumanCommits": 0
+    },
+    "TopAICommits": null,
+    "AllCommits": [
+      {
+        "Indicators": [
+          "AI Tools Mentioned: ai",
+          "Medium Probability: configure",
+          "Detailed Commit Message"
+        ],
+        "ShortHash": "7276a47",
+        "PossibleLLM": "Claude AI / GitHub Copilot",
+        "Message": "≡ƒº¬ Test: AI attribution automation system configured",
+        "Author": "thisis-romar",
+        "AILikelihood": [
+          "Very High",
+          "High",
+          "Medium"
+        ],
+        "AIScore": 8,
+        "Date": "2025-10-06 16:36:30 -0400",
+        "Hash": "7276a47fd3d6b7b1b7d33422e6a3aa36e21d2604"
+      },
+      {
+        "Indicators": [
+          "High Probability: comprehensive",
+          "AI Tools Mentioned: copilot",
+          "AI Tools Mentioned: claude",
+          "Conventional Commit Format",
+          "Detailed Commit Message"
+        ],
+        "ShortHash": "c4d9495",
+        "PossibleLLM": "Claude AI / GitHub Copilot",
+        "Message": "feat: Add comprehensive GitHub Copilot instructions for WhatsApp receipts processing",
+        "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
+        "AILikelihood": [
+          "Very High",
+          "High",
+          "Medium"
+        ],
+        "AIScore": 16,
+        "Date": "2025-10-06 15:38:16 -0400",
+        "Hash": "c4d949530529f711b2b340a0f0ecf06569f253a6"
+      },
+      {
+        "Indicators": [
+          "Detailed Commit Message"
+        ],
+        "ShortHash": "fb9a94c",
+        "PossibleLLM": "Human",
+        "Message": "Initial commit: WhatsApp Receipt Capture with Image Retrieval System",
+        "Author": "thisis-romar",
+        "AILikelihood": "Medium",
+        "AIScore": 1,
+        "Date": "2025-10-06 15:24:37 -0400",
+        "Hash": "fb9a94cee04fa94349c18054bfa1ce804ba4c8c8"
+      }
+    ]
+  },
+  "ProjectPath": "H:\\- emblem.iO -\\emblem.io-whatsapp-recipts",
+  "Tools": {
+    "Version": "1.0",
+    "LLMIdentifier": "LLMCommitIdentifier.ps1",
+    "Project": "WhatsApp Receipts Processing System"
+  },
+  "TimeRange": "4 weeks ago",
+  "GeneratedAt": "2025-10-06 16:38:40"
+}
