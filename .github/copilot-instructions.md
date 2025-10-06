@@ -31,6 +31,22 @@ A sophisticated investor presentation platform featuring:
 - **Logging**: Winston for structured logging
 - **Containerization**: Docker with Node.js 18-alpine base image
 
+## Development Dependencies
+
+### AI Attribution Tools (External)
+For development workflow attribution analysis:
+```powershell
+# Install AI Attribution Tools from PowerShell Gallery
+Install-Module -Name AIAttributionTools -Scope CurrentUser
+
+# Use in development workflow for commit analysis
+Invoke-LLMCommitAnalysis -ShowDetails
+```
+
+**Repository**: [AI Attribution Tools](https://github.com/thisis-romar/ai-attribution-tools)  
+**Documentation**: See AI Attribution Tools repository for complete usage guide  
+**Note**: AI Attribution Tools has moved to its own dedicated repository for better community focus and reusability across projects.
+
 ## Architecture Principles
 
 ### Microservices Pattern
@@ -41,7 +57,7 @@ A sophisticated investor presentation platform featuring:
 
 ### Project Structure
 ```
-whatsapp-receipts-comprehensive/
+emblem-io-whatsapp-receipts/
 ├── src/                                    # Backend WhatsApp system
 │   ├── app.js                             # Main Express application
 │   ├── controllers/                       # Request handlers (webhook, document)
@@ -49,21 +65,7 @@ whatsapp-receipts-comprehensive/
 │   ├── middleware/                        # Cross-cutting (auth, validation, logging)
 │   └── utils/                            # Utilities (logger, helpers)
 ├── tests/                                 # Backend tests
-├── AIAttributionTools/                    # 🤖 AI Attribution PowerShell Module (v1.0.0)
-│   ├── AIAttributionTools.psd1           # Module manifest with semantic versioning
-│   ├── AIAttributionTools.psm1           # Main module file
-│   ├── Public/                           # Exported functions
-│   │   └── Invoke-LLMCommitAnalysis.ps1  # Main AI detection function
-│   ├── Install-AIAttributionTools.ps1    # VS Code Copilot integration installer
-│   ├── GitVersion.yml                    # Automated semantic versioning config
-│   └── README.md                         # Community distribution documentation
-├── tools/                                # Legacy AI attribution scripts
-│   ├── LLMCommitIdentifier.ps1          # Original AI commit detection (271 lines)
-│   ├── ChatHistoryParser.ps1            # VS Code Copilot chat analysis
-│   ├── CommitAttributionCorrector.ps1   # Git commit author correction
-│   └── ChatAnalysisHelpers.ps1          # Helper functions
-├── .github/workflows/                    # CI/CD automation
-│   └── ai-attribution-release.yml       # PowerShell Gallery publishing workflow
+├── .github/workflows/                    # CI/CD automation for WhatsApp system
 ├── enhanced-pitch-deck.html              # Main investor presentation (4/20 slides complete)
 ├── pitch-deck-image-retriever.js         # Pexels image sourcing system (315 images)
 ├── image-quality-assessment.js           # Professional image analysis tool
@@ -557,113 +559,6 @@ export const healthCheck = async (req, res) => {
 
 ---
 
-## AI Attribution Tools - PowerShell Module Distribution
-
-### 🤖 AI Attribution System Overview
-This project includes a comprehensive **AI Attribution Tools** PowerShell module designed for GitHub community distribution. The system provides advanced AI-assisted commit detection and attribution management for development workflows using VS Code Copilot, ChatGPT, Claude AI, and other AI coding assistants.
-
-### Module Structure and Components
-
-#### **Core PowerShell Module (AIAttributionTools)**
-- **Module Manifest**: `AIAttributionTools.psd1` with semantic versioning (v1.0.0+)
-- **Main Module**: `AIAttributionTools.psm1` with proper function exports
-- **Primary Function**: `Invoke-LLMCommitAnalysis` - Advanced AI detection with 0-11+ scoring
-- **VS Code Integration**: `Install-AIAttributionTools.ps1` - One-click Copilot environment setup
-- **Automated Versioning**: GitVersion configuration for semantic releases
-
-#### **Original Tool Scripts (Legacy)**
-- **LLMCommitIdentifier.ps1** (271 lines) - Sophisticated AI commit detection patterns
-- **ChatHistoryParser.ps1** - VS Code Copilot chat history correlation analysis  
-- **CommitAttributionCorrector.ps1** - Git commit author correction and attribution
-- **ChatAnalysisHelpers.ps1** - Helper functions and convenience wrappers
-
-#### **Distribution Infrastructure**
-- **PowerShell Gallery Publishing**: ✅ **LIVE and ACTIVE** - Module published and available
-- **GitHub Releases**: Semantic versioning with GitVersion automation
-- **Community Documentation**: Comprehensive README with installation guides
-- **VS Code Copilot Integration**: Out-of-the-box setup for Windows 11 environments
-
-### AI Detection Capabilities
-
-#### **Supported AI Models**
-- GitHub Copilot (VS Code, Cursor, other editors)
-- ChatGPT / OpenAI (GPT-3.5, GPT-4, GPT-4o series)  
-- Claude AI (Anthropic's Claude 3 Opus, Sonnet, Haiku)
-- Cursor AI, Tabnine, CodeWhisperer, IntelliCode, Codeium, Sourcegraph Cody
-
-#### **Detection Features**
-- **Pattern Recognition**: 50+ AI commit indicators with advanced scoring
-- **Scoring System**: 0-11+ point scale for AI likelihood assessment
-- **Statistical Analysis**: Comprehensive reporting and trend detection
-- **Conventional Commits**: Integration with standardized commit formats
-- **Attribution Correction**: Automated git commit author updates
-
-### PowerShell Module Development Standards
-
-#### **Module Structure Requirements**
-```powershell
-# ✅ Proper module manifest with semantic versioning
-@{
-    ModuleVersion = '1.0.0'  # Following SemVer standards
-    GUID = 'f8c4d8b2-6e3a-4b5f-9c7d-2a1e8f4b9d6c'
-    FunctionsToExport = @('Invoke-LLMCommitAnalysis', 'Get-AIAttributedCommits')
-    Tags = @('AI', 'Attribution', 'GitHub', 'Copilot', 'LLM', 'Git')
-}
-
-# ✅ Function exports with proper help documentation
-function Invoke-LLMCommitAnalysis {
-    <#
-    .SYNOPSIS
-    Advanced AI-assisted commit detection and analysis
-    .PARAMETER Since
-    Time range for commit analysis (default: "30 days ago")
-    #>
-    [CmdletBinding()]
-    param([string]$Since = "30 days ago")
-}
-```
-
-#### **Community Distribution Standards**
-- **PowerShell Gallery**: Module published as `AIAttributionTools` 
-- **GitHub Releases**: Automated releases with semantic versioning
-- **Installation Methods**: `Install-Module`, direct download, VS Code integration
-- **Documentation**: Comprehensive README, API reference, examples
-- **Testing**: Pester tests with 80%+ coverage requirement
-
-### 🚀 **PUBLIC AVAILABILITY - LIVE NOW**
-
-**PowerShell Gallery**: [AIAttributionTools v1.0.0](https://www.powershellgallery.com/packages/AIAttributionTools)
-
-#### **Public Installation (Available Now)**
-```powershell
-# Install from PowerShell Gallery (FREE - no API charges)
-Install-Module -Name AIAttributionTools -Scope CurrentUser
-
-# Verify installation
-Get-Module AIAttributionTools -ListAvailable
-
-# Basic analysis
-Invoke-LLMCommitAnalysis -Since "7 days ago"
-
-# Quick alias for frequent use
-llm-analyze -ShowDetails
-```
-
-#### **VS Code Copilot Integration (Windows 11)**
-```powershell
-# One-click setup for VS Code + Copilot environments
-irm https://raw.githubusercontent.com/thisis-romar/emblem.io-whatsapp-receipts/main/AIAttributionTools/Install-AIAttributionTools.ps1 | iex
-```
-
-#### **CI/CD Integration**
-```yaml
-# GitHub Actions workflow for automated releases
-- name: Publish to PowerShell Gallery
-  shell: pwsh
-  run: |
-    Publish-Module -Path ./AIAttributionTools -NuGetApiKey ${{ secrets.PSGALLERY_API_KEY }}
-```
-
 ## Current Project Status & Next Steps
 
 **COMPLETED COMPONENTS:**
@@ -672,70 +567,35 @@ irm https://raw.githubusercontent.com/thisis-romar/emblem.io-whatsapp-receipts/m
 ✅ Design quality evaluation infrastructure (Firecrawl + Playwright)  
 ✅ Enhanced slide deck foundation with beautiful animations  
 ✅ Industry-leading design quality achievement (Grade A: 92.1/100)  
-✅ **AI Attribution Tools PowerShell Module (v1.0.0)** - 🚀 **PUBLISHED and LIVE on PowerShell Gallery**
-✅ **VS Code Copilot Integration** - Automated installation and configuration
-✅ **PowerShell Gallery Publishing** - ✅ **COMPLETED and DEPLOYED** - Module publicly available
 
 **CRITICAL MISSING COMPONENT:**
 ❌ **Complete 20-slide investor presentation** (only 4/20 slides implemented)
 
-**COMPLETED MILESTONES:**
-✅ **Complete Integration**: Detection logic successfully integrated into module functions  
-✅ **Published to PowerShell Gallery**: Module live and available at [PowerShell Gallery](https://www.powershellgallery.com/packages/AIAttributionTools)  
-✅ **Community Launch**: AI Attribution Tools publicly available for GitHub community  
-✅ **Live Validation**: Module confirmed working with 1 download recorded, zero API costs  
-✅ **Link Health Assessment**: Comprehensive repository validation completed (65% link health)  
+**IMMEDIATE PRIORITIES:**
+1. **🚨 URGENT**: Complete remaining 16 slides for investor presentation
+2. **📊 Business Content**: Integrate detailed business content provided by stakeholders  
+3. **🎨 Visual Quality**: Maintain Grade A design standards with beautiful gradients and animations
+4. **📱 Responsive Design**: Ensure cross-browser compatibility and mobile responsiveness
+5. **� Production Deployment**: Finalize Google Cloud Run deployment pipeline
 
-**🚀 LIVE STATUS CONFIRMED:**
-- **PowerShell Gallery**: ✅ Live and functional (v1.0.0, public installation working)
-- **Core Distribution**: ✅ 100% functional (Install-Module, VS Code integration, manual download)
-- **Community Access**: ✅ Zero ongoing costs for users and publishers
-
-**PUBLIC INSTALLATION (VERIFIED WORKING):**
-```powershell
-# Install from PowerShell Gallery (FREE - confirmed no API charges)
-Install-Module -Name AIAttributionTools -Scope CurrentUser
-
-# Verify installation and run analysis
-Get-Module AIAttributionTools -ListAvailable
-Invoke-LLMCommitAnalysis -ShowDetails
-```
-
-**CRITICAL ISSUES IDENTIFIED:**
-❌ **GitHub Releases Missing**: Repository shows "There aren't any releases here" despite README references  
-❌ **Documentation Links Broken**: Missing docs/API.md, docs/Configuration.md, examples/ files  
-❌ **Repository Link Health**: 65% overall (11/16 links working, core distribution 100%)  
-
-**IMMEDIATE PRIORITIES (FIX CRITICAL ISSUES):**
-1. **🚨 URGENT**: Create GitHub v1.0.0 release to fix 3 broken README links  
-2. **📝 Documentation**: Create missing docs/API.md, docs/Configuration.md, examples/ files  
-3. **🔗 Link Maintenance**: Update README to remove/fix remaining broken documentation links  
-4. **📈 Community Promotion**: Announce AI Attribution Tools after repository quality fixes  
-
-**REMAINING NEXT STEPS:**
+**NEXT STEPS:**
 1. **Investor Presentation**: Build remaining 16 slides with comprehensive business content
-2. **Repository Quality**: Complete critical GitHub releases and documentation fixes  
-3. **Additional Tools**: Package remaining AI attribution tools for distribution
+2. **WhatsApp Backend**: Enhance receipt processing capabilities and error handling
+3. **Cloud Integration**: Optimize Document AI integration and webhook performance  
+4. **User Testing**: Implement beta testing program for receipt processing functionality
 
 ---
 
-**Trust these instructions** - they reflect the current project architecture and requirements. The project now spans **three major components**: technical WhatsApp system, professional investor presentation platform, AND community-distributed AI attribution tools.
+**Trust these instructions** - they reflect the current project architecture and requirements. This project focuses on **two major components**: technical WhatsApp receipts processing system and professional investor presentation platform.
 
-When implementing new features:
+## Implementation Guidelines
 
-### **Backend Development Standards**
-1. **WhatsApp System**: Follow established patterns for error handling, logging, testing
+### **WhatsApp Backend Development Standards**
+1. **Error Handling**: Implement comprehensive error handling with structured logging
 2. **Cloud Integration**: Use Google Cloud Document AI and WhatsApp Business API patterns  
 3. **Security**: Implement proper webhook signature verification and input validation
 4. **Performance**: Maintain stateless design with appropriate Cloud Run resource allocation
-
-### **AI Attribution Tools Development**
-1. **PowerShell Standards**: Follow Microsoft's module manifest and publishing guidelines
-2. **Semantic Versioning**: Use GitVersion for automated version management
-3. **Community Distribution**: Ensure PowerShell Gallery compatibility and GitHub release automation
-4. **VS Code Integration**: Maintain out-of-the-box experience for Copilot environments on Windows 11
-5. **Documentation**: Provide comprehensive README, API reference, and usage examples
-6. **Testing**: Achieve 80%+ Pester test coverage with proper CI/CD validation
+5. **Testing**: Achieve 80%+ test coverage with integration tests for external APIs
 
 ### **Investor Presentation Development**
 1. **Design Quality**: Maintain Grade A visual standards (92.1/100 achieved)
@@ -744,8 +604,8 @@ When implementing new features:
 4. **Cross-Platform**: Ensure compatibility across browsers and responsive design
 5. **Professional Standards**: Target investor-grade presentation quality throughout
 
-### **Integration Priorities**
-1. **AI Tools**: ✅ **COMPLETED** - Module published and available to GitHub community
-2. **Presentation**: Build remaining 16 slides to complete investor-ready platform
-3. **Backend**: Maintain WhatsApp receipts processing system stability
-4. **Documentation**: Keep all three components properly documented and maintained
+### **Development Workflow**
+- **AI Attribution Analysis**: Use `Install-Module AIAttributionTools` for development workflow attribution
+- **Version Control**: Follow conventional commits for clear project history
+- **Code Quality**: Maintain ES modules, async/await patterns, and comprehensive error handling
+- **Documentation**: Keep project documentation focused on WhatsApp receipts processing
