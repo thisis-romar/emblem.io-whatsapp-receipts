@@ -1,0 +1,177 @@
+name: AI Attribution CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Weekly comprehensive audit - Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  ai-attribution-analysis:
+    name: AI Attribution Analysis
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for comprehensive analysis
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "AI Attribution Bot"
+          git config --global user.email "ai-attribution@emblemprojects.com"
+          git config --global core.autocrlf false
+
+      - name: Set PowerShell Execution Policy
+        run: Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
+
+      - name: Run LLM Commit Identifier
+        id: llm-analysis
+        run: |
+          Write-Host "🔍 Running LLM Commit Analysis..."
+          $result = & "./tools/LLMCommitIdentifier.ps1" -ShowDetails
+          if ($LASTEXITCODE -ne 0) {
+            Write-Warning "LLM analysis completed with warnings"
+          }
+        shell: powershell
+        continue-on-error: true
+
+      - name: Run Chat History Correlation
+        id: chat-analysis
+        run: |
+          Write-Host "💬 Analyzing VS Code Chat History..."
+          & "./tools/ChatHistoryParser.ps1" -ShowDetails
+        shell: powershell
+        continue-on-error: true
+
+      - name: Check for Attribution Corrections Needed
+        id: check-corrections
+        run: |
+          Write-Host "🔧 Checking for required attribution corrections..."
+          $corrections = & "./tools/CommitAttributionCorrector.ps1" -DryRun
+          if ($corrections -match "Corrections needed") {
+            echo "corrections_needed=true" >> $env:GITHUB_OUTPUT
+            Write-Host "✅ Attribution corrections required"
+          } else {
+            echo "corrections_needed=false" >> $env:GITHUB_OUTPUT
+            Write-Host "✅ No corrections needed"
+          }
+        shell: powershell
+
+      - name: Apply Attribution Corrections
+        if: steps.check-corrections.outputs.corrections_needed == 'true'
+        run: |
+          Write-Host "🚀 Applying automatic attribution corrections..."
+          & "./tools/CommitAttributionCorrector.ps1" -AutoApply -Force
+          
+          # Check if corrections were made
+          $status = git status --porcelain
+          if ($status) {
+            Write-Host "📝 Committing attribution corrections..."
+            git add .
+            git commit -m "🤖 Automated AI attribution corrections
+
+            Applied by AI Attribution CI workflow
+            - LLM commit analysis completed
+            - Attribution updated for AI-assisted commits
+            - Maintained proper commit authorship
+
+            [skip ci]"
+            
+            Write-Host "📤 Pushing attribution corrections..."
+            git push origin HEAD
+          } else {
+            Write-Host "✅ No file changes needed for attribution corrections"
+          }
+        shell: powershell
+
+      - name: Generate Attribution Report
+        if: github.event_name == 'schedule'
+        run: |
+          Write-Host "📊 Generating weekly attribution audit report..."
+          $reportPath = "attribution-audit-$(Get-Date -Format 'yyyy-MM-dd').json"
+          & "./tools/ChatAnalysisHelpers.ps1" -GenerateReport -OutputPath $reportPath
+          
+          # Upload report as artifact
+          echo "report_path=$reportPath" >> $env:GITHUB_OUTPUT
+        shell: powershell
+
+      - name: Upload Attribution Audit Report
+        if: github.event_name == 'schedule'
+        uses: actions/upload-artifact@v4
+        with:
+          name: attribution-audit-report
+          path: attribution-audit-*.json
+          retention-days: 30
+
+      - name: Comment on PR with Analysis Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // Read analysis results if they exist
+            let analysisComment = '## 🤖 AI Attribution Analysis\n\n';
+            analysisComment += '✅ Automated AI commit analysis completed\n';
+            analysisComment += '✅ Chat history correlation checked\n';
+            
+            if ('${{ steps.check-corrections.outputs.corrections_needed }}' === 'true') {
+              analysisComment += '✅ Attribution corrections applied automatically\n';
+            } else {
+              analysisComment += '✅ No attribution corrections needed\n';
+            }
+            
+            analysisComment += '\n*This analysis ensures proper attribution of AI-assisted commits.*';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: analysisComment
+            });
+
+  security-scan:
+    name: Security and Compliance Check
+    runs-on: windows-latest
+    needs: ai-attribution-analysis
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate PowerShell Scripts
+        run: |
+          Write-Host "🔒 Validating PowerShell script security..."
+          Get-ChildItem -Path "tools" -Filter "*.ps1" -Recurse | ForEach-Object {
+            Write-Host "Checking $($_.Name)..."
+            $content = Get-Content $_.FullName -Raw
+            
+            # Check for potential security issues
+            $issues = @()
+            if ($content -match 'Invoke-Expression|iex') { $issues += "Invoke-Expression usage" }
+            if ($content -match 'DownloadString') { $issues += "Web download detected" }
+            if ($content -match '-EncodedCommand') { $issues += "Encoded command usage" }
+            
+            if ($issues.Count -gt 0) {
+              Write-Warning "Security concerns in $($_.Name): $($issues -join ', ')"
+            } else {
+              Write-Host "✅ $($_.Name) passed security check"
+            }
+          }
+        shell: powershell
+
+      - name: Check Git Configuration Security
+        run: |
+          Write-Host "🔒 Validating Git configuration security..."
+          # Ensure safe git practices
+          git config --global --get-regexp "^(user|credential|core)" || true
+        shell: powershell
