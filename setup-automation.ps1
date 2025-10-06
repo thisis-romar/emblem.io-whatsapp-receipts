@@ -30,7 +30,8 @@ try {
     }
     Set-Location $gitRoot
     Write-Host "✅ Git repository found: $gitRoot" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Error "❌ This script must be run from within a git repository"
     exit 1
 }
@@ -44,10 +45,12 @@ if ($currentPolicy -eq "Restricted" -or $currentPolicy -eq "AllSigned") {
     if ($Force -or (Read-Host "Set execution policy to RemoteSigned? (y/N)") -eq "y") {
         Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
         Write-Host "✅ Execution policy updated to RemoteSigned" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Warning "⚠️ Execution policy may prevent automation scripts from running"
     }
-} else {
+}
+else {
     Write-Host "✅ Execution policy is compatible: $currentPolicy" -ForegroundColor Green
 }
 
@@ -59,13 +62,15 @@ if (-not $SkipPreCommit) {
     try {
         $preCommitVersion = pre-commit --version 2>$null
         Write-Host "✅ Pre-commit found: $preCommitVersion" -ForegroundColor Green
-    } catch {
+    }
+    catch {
         Write-Host "❌ Pre-commit not found. Installing via pip..." -ForegroundColor Red
         
         try {
             pip install pre-commit
             Write-Host "✅ Pre-commit installed successfully" -ForegroundColor Green
-        } catch {
+        }
+        catch {
             Write-Warning "⚠️ Failed to install pre-commit. Please install manually: pip install pre-commit"
         }
     }
@@ -76,10 +81,12 @@ if (-not $SkipPreCommit) {
         try {
             pre-commit install
             Write-Host "✅ Pre-commit hooks installed" -ForegroundColor Green
-        } catch {
+        }
+        catch {
             Write-Warning "⚠️ Failed to install pre-commit hooks: $($_.Exception.Message)"
         }
-    } else {
+    }
+    else {
         Write-Warning "⚠️ .pre-commit-config.yaml not found"
     }
 }
@@ -100,7 +107,8 @@ powershell.exe -ExecutionPolicy Bypass -File ".git/hooks/pre-commit.ps1" `$@
 "@ | Set-Content $preCommitHook -Encoding UTF8
         
         Write-Host "✅ Pre-commit git hook created" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ Pre-commit hook already exists (use -Force to overwrite)" -ForegroundColor Yellow
     }
     
@@ -114,7 +122,8 @@ powershell.exe -ExecutionPolicy Bypass -File ".git/hooks/post-commit.ps1" `$@
 "@ | Set-Content $postCommitHook -Encoding UTF8
         
         Write-Host "✅ Post-commit git hook created" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ Post-commit hook already exists (use -Force to overwrite)" -ForegroundColor Yellow
     }
 }
@@ -135,7 +144,8 @@ if (Test-Path $toolsPath) {
         $toolPath = Join-Path $toolsPath $tool
         if (Test-Path $toolPath) {
             Write-Host "✅ $tool" -ForegroundColor Green
-        } else {
+        }
+        else {
             Write-Host "❌ $tool (missing)" -ForegroundColor Red
             $missingTools += $tool
         }
@@ -143,10 +153,12 @@ if (Test-Path $toolsPath) {
     
     if ($missingTools.Count -eq 0) {
         Write-Host "✅ All required tools found" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Warning "⚠️ Missing tools: $($missingTools -join ', ')"
     }
-} else {
+}
+else {
     Write-Warning "⚠️ Tools directory not found at $toolsPath"
 }
 
@@ -157,7 +169,8 @@ $gitEmail = git config user.email 2>$null
 
 if ($gitUser -and $gitEmail) {
     Write-Host "✅ Git user configured: $gitUser <$gitEmail>" -ForegroundColor Green
-} else {
+}
+else {
     Write-Warning "⚠️ Git user not configured. Set with:"
     Write-Host "   git config --global user.name `"Your Name`"" -ForegroundColor Gray
     Write-Host "   git config --global user.email `"your.email@example.com`"" -ForegroundColor Gray
@@ -173,10 +186,12 @@ if (Test-Path $actionsDir) {
         foreach ($workflow in $workflowFiles) {
             Write-Host "   - $($workflow.Name)" -ForegroundColor Gray
         }
-    } else {
+    }
+    else {
         Write-Host "⚠️ No workflow files found in $actionsDir" -ForegroundColor Yellow
     }
-} else {
+}
+else {
     Write-Host "⚠️ GitHub Actions directory not found" -ForegroundColor Yellow
 }
 
@@ -193,7 +208,8 @@ try {
     git reset HEAD $testFile 2>$null
     Remove-Item $testFile -ErrorAction SilentlyContinue
     
-} catch {
+}
+catch {
     Write-Warning "⚠️ Verification test failed: $($_.Exception.Message)"
 }
 

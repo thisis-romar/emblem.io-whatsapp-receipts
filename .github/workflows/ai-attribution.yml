@@ -2,12 +2,12 @@ name: AI Attribution CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
   schedule:
     # Weekly comprehensive audit - Sundays at 2 AM UTC
-    - cron: '0 2 * * 0'
+    - cron: "0 2 * * 0"
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -16,12 +16,12 @@ jobs:
   ai-attribution-analysis:
     name: AI Attribution Analysis
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history for comprehensive analysis
+          fetch-depth: 0 # Fetch full history for comprehensive analysis
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
@@ -71,7 +71,7 @@ jobs:
         run: |
           Write-Host "🚀 Applying automatic attribution corrections..."
           & "./tools/CommitAttributionCorrector.ps1" -AutoApply -Force
-          
+
           # Check if corrections were made
           $status = git status --porcelain
           if ($status) {
@@ -99,7 +99,7 @@ jobs:
           Write-Host "📊 Generating weekly attribution audit report..."
           $reportPath = "attribution-audit-$(Get-Date -Format 'yyyy-MM-dd').json"
           & "./tools/ChatAnalysisHelpers.ps1" -GenerateReport -OutputPath $reportPath
-          
+
           # Upload report as artifact
           echo "report_path=$reportPath" >> $env:GITHUB_OUTPUT
         shell: powershell
@@ -118,20 +118,20 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            
+
             // Read analysis results if they exist
             let analysisComment = '## 🤖 AI Attribution Analysis\n\n';
             analysisComment += '✅ Automated AI commit analysis completed\n';
             analysisComment += '✅ Chat history correlation checked\n';
-            
+
             if ('${{ steps.check-corrections.outputs.corrections_needed }}' === 'true') {
               analysisComment += '✅ Attribution corrections applied automatically\n';
             } else {
               analysisComment += '✅ No attribution corrections needed\n';
             }
-            
+
             analysisComment += '\n*This analysis ensures proper attribution of AI-assisted commits.*';
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -143,7 +143,7 @@ jobs:
     name: Security and Compliance Check
     runs-on: windows-latest
     needs: ai-attribution-analysis
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

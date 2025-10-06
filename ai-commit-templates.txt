@@ -1,0 +1,24 @@
+# AI Commit Message Templates for Claude Sonnet 4 Attribution
+
+# Template 1: Feature Implementation
+feat(ai): Implement [feature] with Claude Sonnet 4 assistance
+Co-authored-by: anthropic_Claude (copilot/claude-sonnet-4) <admin+copilot.claude-sonnet-4@emblemprojects.com>
+
+# Template 2: Documentation
+docs(ai): Add comprehensive documentation via Claude Sonnet 4
+Co-authored-by: anthropic_Claude (copilot/claude-sonnet-4) <admin+copilot.claude-sonnet-4@emblemprojects.com>
+
+# Template 3: Configuration Setup  
+chore(ai): Configure [component] with Claude Sonnet 4 guidance
+Co-authored-by: anthropic_Claude (copilot/claude-sonnet-4) <admin+copilot.claude-sonnet-4@emblemprojects.com>
+
+# Template 4: Code Enhancement
+refactor(ai): Enhance [component] structure with Claude Sonnet 4
+Co-authored-by: anthropic_Claude (copilot/claude-sonnet-4) <admin+copilot.claude-sonnet-4@emblemprojects.com>
+
+# Template 5: Bug Fix
+fix(ai): Resolve [issue] with Claude Sonnet 4 analysis
+Co-authored-by: anthropic_Claude (copilot/claude-sonnet-4) <admin+copilot.claude-sonnet-4@emblemprojects.com>
+
+# Usage Examples:
+# git commit -m "feat(ai): Implement WhatsApp receipt processing with Claude Sonnet 4 assistance" -m "Co-authored-by: anthropic_Claude (copilot/claude-sonnet-4) <admin+copilot.claude-sonnet-4@emblemprojects.com>"
