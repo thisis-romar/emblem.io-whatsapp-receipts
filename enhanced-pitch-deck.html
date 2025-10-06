@@ -26,12 +26,18 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: var(--gradient-dark);
             color: var(--light-text);
             overflow: hidden;
             height: 100vh;
+            width: 100vw;
         }
 
         .presentation {
@@ -43,7 +49,7 @@
 
         .slide {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             position: absolute;
             top: 0;
             left: 0;
@@ -53,34 +59,54 @@
             background-attachment: fixed;
             opacity: 0;
             transform: translateX(100px);
-            transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            /* Presentation Mode Fixes */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            overflow: hidden;
+            max-height: 100vh;
+            contain: layout style paint;
         }
 
         .slide.active {
-            display: flex;
-            opacity: 1;
-            transform: translateX(0);
+            display: flex !important;
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+            position: absolute !important;
+            z-index: 10;
         }
 
         .slide.prev {
             transform: translateX(-100px);
+            opacity: 0;
         }
 
         .slide.next {
             transform: translateX(100px);
+            opacity: 0;
         }
 
-        /* Dynamic background gradients with image integration */
+        /* Dynamic background gradients with image integration - Fixed for Presentation */
         .slide-content {
             width: 100%;
-            height: 100%;
+            max-width: 1400px;
+            height: auto;
+            max-height: calc(100vh - 3rem);
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 60px 80px;
+            padding: 20px 40px;
             backdrop-filter: blur(2px);
+            margin: 0 auto;
+            box-sizing: border-box;
+            /* Presentation Mode Fixes */
+            overflow: hidden;
+            contain: layout style;
         }
 
         /* Animated overlay gradients */
@@ -158,40 +184,40 @@
         }
 
         h1 {
-            font-size: 4.5rem;
+            font-size: clamp(3rem, 6vw, 4.5rem);
             font-weight: 800;
             background: var(--gradient-success);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1rem, 3vh, 2rem);
             line-height: 1.1;
         }
 
         h2 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: clamp(0.8rem, 2vh, 1.5rem);
             color: var(--light-text);
         }
 
         h3 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 3.5vw, 2.5rem);
             font-weight: 600;
             color: var(--accent-green);
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
         }
 
         .subtitle {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             font-weight: 300;
-            margin-bottom: 2rem;
+            margin-bottom: clamp(1rem, 2vh, 2rem);
             opacity: 0.9;
             animation: textReveal 1.2s ease-out 0.6s both;
         }
 
         p {
-            font-size: 1.4rem;
+            font-size: clamp(1rem, 2vw, 1.4rem);
             line-height: 1.6;
             margin-bottom: 1.5rem;
             animation: textReveal 1.2s ease-out 0.9s both;
@@ -231,7 +257,7 @@
         /* Interactive elements */
         .metric {
             text-align: center;
-            margin: 2rem 1rem;
+            margin: 1rem 0.5rem;
             animation: metricPop 1.5s ease-out 1s both;
         }
 
@@ -242,7 +268,7 @@
         }
 
         .metric-value {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 4vw, 4rem);
             font-weight: 800;
             background: var(--gradient-success);
             -webkit-background-clip: text;
@@ -253,7 +279,7 @@
         }
 
         .metric-label {
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
             opacity: 0.8;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -362,12 +388,110 @@
             }
         }
 
+        /* Solution Overview Styles */
+        .solution-overview {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem-solution-pair {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: stretch;
+        }
+
+        .problem-box, .solution-box {
+            flex: 1;
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .problem-box {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.2), rgba(108, 117, 125, 0.2));
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.2), rgba(32, 201, 151, 0.2));
+        }
+
+        .value-proposition {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Process Flow Styles */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-green);
+        }
+
+        .process-arrow {
+            font-size: 2rem;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .problem-solution-pair {
+                flex-direction: column;
+            }
+            .process-flow {
+                flex-direction: column;
+            }
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
         /* Special slide backgrounds with assessed images */
         .slide-4 { background: url('https://images.pexels.com/photos/5900131/pexels-photo-5900131.jpeg') center/cover; }
         .slide-5 { background: url('https://images.pexels.com/photos/7413915/pexels-photo-7413915.jpeg') center/cover; }
-        .slide-6 { background: url('https://images.pexels.com/photos/8872439/pexels-photo-8872439.jpeg') center/cover; }
-        .slide-7 { background: url('https://images.pexels.com/photos/7054385/pexels-photo-7054385.jpeg') center/cover; }
-        .slide-8 { background: url('https://images.pexels.com/photos/6289060/pexels-photo-6289060.jpeg') center/cover; }
+        .slide-6 { background: url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg') center/cover; }
+        .slide-7 { background: url('https://images.pexels.com/photos/8872439/pexels-photo-8872439.jpeg') center/cover; }
+        .slide-8 { background: url('https://images.pexels.com/photos/7054385/pexels-photo-7054385.jpeg') center/cover; }
+        .slide-9 { background: url('https://images.pexels.com/photos/6289060/pexels-photo-6289060.jpeg') center/cover; }
 
         /* Loading animation */
         .loading-overlay {
@@ -962,6 +1086,1836 @@
                 height: 200px;
             }
         }
+
+        /* Batch 3: Business Model & Financial Slides */
+        .pricing-model {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: scaleIn 0.8s ease-out both;
+        }
+
+        .pricing-card.primary {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(0, 191, 255, 0.2));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            transform: scale(1.05);
+        }
+
+        .price-value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 1rem 0;
+        }
+
+        .pricing-benefits {
+            margin-top: 1.5rem;
+        }
+
+        .benefit {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .tier-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tier-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .tier-price {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .revenue-streams {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .revenue-stream {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            animation: slideInRight 0.6s ease-out both;
+        }
+
+        .revenue-stream:nth-child(2) { animation-delay: 0.1s; }
+        .revenue-stream:nth-child(3) { animation-delay: 0.2s; }
+        .revenue-stream:nth-child(4) { animation-delay: 0.3s; }
+
+        .stream-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .stream-metric {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .competitive-pricing {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .comparison-bar {
+            margin-top: 1rem;
+        }
+
+        .competitor-price,
+        .our-price {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+        }
+
+        .competitor-price {
+            background: rgba(255, 99, 99, 0.2);
+            border: 1px solid rgba(255, 99, 99, 0.3);
+        }
+
+        .our-price {
+            background: rgba(0, 255, 127, 0.2);
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            font-weight: bold;
+        }
+
+        .projections-overview {
+            margin-top: 2rem;
+        }
+
+        .projection-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .highlight-metric {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: bounceIn 0.8s ease-out both;
+        }
+
+        .highlight-metric.primary {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        .highlight-metric:nth-child(1) { animation-delay: 0.1s; }
+        .highlight-metric:nth-child(2) { animation-delay: 0.2s; }
+        .highlight-metric:nth-child(3) { animation-delay: 0.3s; }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .financial-table {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .table-header,
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr 1.2fr 1.2fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .table-header {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .table-row {
+            background: rgba(255, 255, 255, 0.05);
+            animation: fadeInUp 0.6s ease-out both;
+            transition: all 0.3s ease;
+        }
+
+        .year-1 { animation-delay: 0.1s; }
+        .year-2 { animation-delay: 0.2s; }
+        .year-3 { animation-delay: 0.3s; }
+        .year-4 { animation-delay: 0.4s; }
+        .year-5 { 
+            animation-delay: 0.5s;
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.1), rgba(0, 191, 255, 0.1));
+            border: 1px solid rgba(0, 255, 127, 0.2);
+            font-weight: bold;
+        }
+
+        .table-row:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
+        }
+
+        .assumptions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .assumption-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .assumption-metric {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .unit-economics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .economics-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: slideInUp 0.8s ease-out both;
+        }
+
+        .economics-card.primary {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(0, 191, 255, 0.2));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            transform: scale(1.05);
+        }
+
+        .economics-card:nth-child(1) { animation-delay: 0.1s; }
+        .economics-card:nth-child(2) { animation-delay: 0.2s; }
+        .economics-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .economics-metric {
+            margin: 1.5rem 0;
+        }
+
+        .economics-metric .metric-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .payback-analysis {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+        }
+
+        .payback-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            flex: 1;
+            margin: 0 0.5rem;
+        }
+
+        .timeline-point.breakeven {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(0, 191, 255, 0.2));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+        }
+
+        .margin-breakdown {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .margin-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            animation: slideInLeft 0.6s ease-out both;
+        }
+
+        .margin-item:nth-child(1) { animation-delay: 0.1s; }
+        .margin-item:nth-child(2) { animation-delay: 0.2s; }
+        .margin-item:nth-child(3) { animation-delay: 0.3s; }
+        .margin-item:nth-child(4) { animation-delay: 0.4s; }
+        .margin-item:nth-child(5) { animation-delay: 0.5s; }
+
+        .margin-item.revenue {
+            background: rgba(0, 255, 127, 0.1);
+            border: 1px solid rgba(0, 255, 127, 0.2);
+        }
+
+        .margin-item.cost {
+            background: rgba(255, 99, 99, 0.1);
+            border: 1px solid rgba(255, 99, 99, 0.2);
+        }
+
+        .margin-item.gross {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            font-weight: bold;
+        }
+
+        .cohort-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .cohort-stat {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cohort-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .scalability-overview {
+            margin-top: 2rem;
+        }
+
+        .scale-advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .scale-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: zoomIn 0.8s ease-out both;
+        }
+
+        .scale-card.primary {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(75, 0, 130, 0.2));
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transform: scale(1.05);
+        }
+
+        .scale-card:nth-child(1) { animation-delay: 0.1s; }
+        .scale-card:nth-child(2) { animation-delay: 0.2s; }
+        .scale-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .scale-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .scale-metrics {
+            margin: 1.5rem 0;
+        }
+
+        .scale-metric {
+            display: flex;
+            flex-direction: column;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .metric-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .levers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .lever-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .lever-item:nth-child(1) { animation-delay: 0.1s; }
+        .lever-item:nth-child(2) { animation-delay: 0.2s; }
+        .lever-item:nth-child(3) { animation-delay: 0.3s; }
+        .lever-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .lever-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Additional Responsive Design for Financial Slides */
+        @media (max-width: 768px) {
+            .pricing-model {
+                grid-template-columns: 1fr;
+            }
+            
+            .projection-highlights,
+            .unit-economics-grid,
+            .scale-advantages {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-header,
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .payback-timeline {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .margin-item {
+                grid-template-columns: 1fr;
+            }
+            
+            .cohort-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .levers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Batch 4: Execution Strategy Slides */
+        .gtm-phases {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .phase-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInUp 0.8s ease-out both;
+            position: relative;
+        }
+
+        .phase-card.phase-1 {
+            animation-delay: 0.1s;
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.15), rgba(0, 191, 255, 0.15));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+        }
+
+        .phase-card.phase-2 {
+            animation-delay: 0.2s;
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.15), rgba(255, 215, 0, 0.15));
+            border: 1px solid rgba(255, 140, 0, 0.3);
+        }
+
+        .phase-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .phase-targets {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .target-metric {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .target-metric .metric-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-activities {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .phase-activities li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .customer-acquisition {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+        }
+
+        .channel-breakdown {
+            margin-top: 2rem;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInLeft 0.6s ease-out both;
+        }
+
+        .channel-item.primary {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(0, 191, 255, 0.2));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            transform: scale(1.02);
+        }
+
+        .channel-item:nth-child(1) { animation-delay: 0.1s; }
+        .channel-item:nth-child(2) { animation-delay: 0.2s; }
+        .channel-item:nth-child(3) { animation-delay: 0.3s; }
+        .channel-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .channel-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .channel-metrics {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .cac-cost,
+        .conversion-rate {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .cac-cost {
+            color: #ff6b6b;
+        }
+
+        .conversion-rate {
+            color: #00ff7f;
+        }
+
+        .marketing-overview {
+            margin-top: 2rem;
+        }
+
+        .marketing-funnel {
+            margin-bottom: 3rem;
+        }
+
+        .funnel-stages {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .funnel-stage {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            flex: 1;
+            animation: scaleIn 0.8s ease-out both;
+        }
+
+        .funnel-stage:nth-child(1) { animation-delay: 0.1s; }
+        .funnel-stage:nth-child(3) { animation-delay: 0.3s; }
+        .funnel-stage:nth-child(5) { animation-delay: 0.5s; }
+
+        .stage-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .stage-metrics {
+            margin: 1rem 0;
+        }
+
+        .stage-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .stage-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .funnel-arrow {
+            font-size: 2rem;
+            color: var(--accent-color);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .marketing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .marketing-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: bounceIn 0.8s ease-out both;
+        }
+
+        .marketing-card.primary {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(75, 0, 130, 0.2));
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transform: scale(1.05);
+        }
+
+        .marketing-card:nth-child(1) { animation-delay: 0.1s; }
+        .marketing-card:nth-child(2) { animation-delay: 0.2s; }
+        .marketing-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .marketing-tactics {
+            margin: 1.5rem 0;
+        }
+
+        .tactic {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .channel-budget {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(0, 191, 255, 0.2));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .sales-process {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 3rem;
+        }
+
+        .sales-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .sales-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            animation: slideInRight 0.6s ease-out both;
+        }
+
+        .sales-step:nth-child(1) { animation-delay: 0.1s; }
+        .sales-step:nth-child(2) { animation-delay: 0.2s; }
+        .sales-step:nth-child(3) { animation-delay: 0.3s; }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .partnership-tiers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tier-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: zoomIn 0.8s ease-out both;
+            position: relative;
+        }
+
+        .tier-card.tier-1 {
+            animation-delay: 0.1s;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.15));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .tier-card.tier-2 {
+            animation-delay: 0.2s;
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.15), rgba(138, 43, 226, 0.15));
+            border: 1px solid rgba(0, 191, 255, 0.3);
+        }
+
+        .tier-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .partner-logos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .partner-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .partner-icon {
+            font-size: 1.5rem;
+        }
+
+        .partner-categories {
+            margin-top: 2rem;
+        }
+
+        .category-item {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .revenue-share {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(0, 191, 255, 0.2));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .partnership-roadmap {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .roadmap-timeline {
+            margin-top: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            animation: slideInLeft 0.6s ease-out both;
+        }
+
+        .timeline-item.q1 { animation-delay: 0.1s; }
+        .timeline-item.q2 { animation-delay: 0.2s; }
+        .timeline-item.q3 { animation-delay: 0.3s; }
+
+        .timeline-quarter {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 100px;
+            flex-shrink: 0;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .timeline-content li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ecosystem-value {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .value-props {
+            margin: 2rem 0;
+        }
+
+        .value-prop {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .prop-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .ecosystem-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .ecosystem-stat {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Additional Responsive Design for Execution Strategy Slides */
+        @media (max-width: 768px) {
+            .gtm-phases,
+            .partnership-tiers {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-targets,
+            .partner-logos,
+            .ecosystem-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            .funnel-stages {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .funnel-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .marketing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sales-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .channel-metrics {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-quarter {
+                min-width: auto;
+            }
+        }
+
+        /* Batch 5: Investment & Team Slides */
+        .investment-overview {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .funding-ask {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(75, 0, 130, 0.2));
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 30px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            animation: pulseGlow 3s ease-in-out infinite;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .ask-amount {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 0 0 30px rgba(0, 255, 127, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .ask-type {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .equity-offer,
+        .valuation {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0.5rem 0;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(138, 43, 226, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(138, 43, 226, 0.6), 0 0 60px rgba(0, 255, 127, 0.3); }
+        }
+
+        .use-of-funds {
+            margin-top: 3rem;
+        }
+
+        .funds-allocation {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .fund-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInUp 0.8s ease-out both;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .fund-item.product {
+            animation-delay: 0.1s;
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.15), rgba(0, 191, 255, 0.15));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+        }
+
+        .fund-item.sales {
+            animation-delay: 0.2s;
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.15), rgba(255, 215, 0, 0.15));
+            border: 1px solid rgba(255, 140, 0, 0.3);
+        }
+
+        .fund-item.team {
+            animation-delay: 0.3s;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(75, 0, 130, 0.15));
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .fund-item.operations {
+            animation-delay: 0.4s;
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.15), rgba(255, 105, 180, 0.15));
+            border: 1px solid rgba(255, 20, 147, 0.3);
+        }
+
+        .fund-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        .fund-category {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .fund-amount {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .fund-description ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .fund-description li {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .investment-milestones {
+            margin-top: 3rem;
+        }
+
+        .milestone-timeline {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .milestone-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            flex: 1;
+            animation: bounceIn 0.8s ease-out both;
+        }
+
+        .milestone-item.m6 { animation-delay: 0.1s; }
+        .milestone-item.m12 { animation-delay: 0.2s; }
+        .milestone-item.m18 { animation-delay: 0.3s; }
+
+        .milestone-period {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .target-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .investor-returns {
+            margin-top: 3rem;
+        }
+
+        .return-scenarios {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .scenario {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: zoomIn 0.8s ease-out both;
+        }
+
+        .scenario.conservative {
+            animation-delay: 0.1s;
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.15), rgba(255, 152, 0, 0.15));
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .scenario.moderate {
+            animation-delay: 0.2s;
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.15), rgba(0, 191, 255, 0.15));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            transform: scale(1.05);
+        }
+
+        .scenario.aggressive {
+            animation-delay: 0.3s;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(75, 0, 130, 0.15));
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .scenario-type {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-multiple {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 1rem 0;
+        }
+
+        .scenario-timeline,
+        .scenario-valuation {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 0.5rem 0;
+        }
+
+        .team-leadership {
+            margin-top: 2rem;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInLeft 0.8s ease-out both;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .team-member.founder {
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(0, 191, 255, 0.2));
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            transform: scale(1.02);
+        }
+
+        .team-member:nth-child(1) { animation-delay: 0.1s; }
+        .team-member:nth-child(2) { animation-delay: 0.2s; }
+        .team-member:nth-child(3) { animation-delay: 0.3s; }
+        .team-member:nth-child(4) { animation-delay: 0.4s; }
+
+        .member-avatar {
+            font-size: 4rem;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-title {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .member-background ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .member-background li {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .advisory-board {
+            margin-top: 3rem;
+        }
+
+        .advisory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .advisor-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .advisor-card:nth-child(1) { animation-delay: 0.1s; }
+        .advisor-card:nth-child(2) { animation-delay: 0.2s; }
+        .advisor-card:nth-child(3) { animation-delay: 0.3s; }
+        .advisor-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .advisor-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .advisor-title {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .advisor-expertise {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .advisor-value {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .team-strengths {
+            margin-top: 3rem;
+        }
+
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .strength-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInRight 0.8s ease-out both;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .strength-item:nth-child(1) { animation-delay: 0.1s; }
+        .strength-item:nth-child(2) { animation-delay: 0.2s; }
+        .strength-item:nth-child(3) { animation-delay: 0.3s; }
+        .strength-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .strength-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .strength-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .strength-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .hiring-roadmap {
+            margin-top: 3rem;
+        }
+
+        .hiring-timeline {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .hiring-phase {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: bounceIn 0.8s ease-out both;
+        }
+
+        .hiring-phase:nth-child(1) { animation-delay: 0.1s; }
+        .hiring-phase:nth-child(2) { animation-delay: 0.2s; }
+
+        .phase-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .role {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .total-team {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .vision-statement {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .vision-content {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(75, 0, 130, 0.2));
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 30px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            animation: fadeInScale 1s ease-out both;
+        }
+
+        .vision-text {
+            font-size: 1.4rem;
+            font-style: italic;
+            line-height: 1.6;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .market-impact {
+            margin: 3rem 0;
+        }
+
+        .impact-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .impact-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: countUp 1.5s ease-out both;
+        }
+
+        .impact-item:nth-child(1) { animation-delay: 0.1s; }
+        .impact-item:nth-child(2) { animation-delay: 0.2s; }
+        .impact-item:nth-child(3) { animation-delay: 0.3s; }
+        .impact-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .impact-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 0 0 20px rgba(0, 255, 127, 0.5);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .impact-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px) scale(0.8); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .competitive-advantages {
+            margin: 3rem 0;
+        }
+
+        .advantages-list {
+            margin-top: 2rem;
+        }
+
+        .advantage-item {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideInLeft 0.8s ease-out both;
+        }
+
+        .advantage-item:nth-child(1) { animation-delay: 0.1s; }
+        .advantage-item:nth-child(2) { animation-delay: 0.2s; }
+        .advantage-item:nth-child(3) { animation-delay: 0.3s; }
+        .advantage-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .advantage-icon {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .advantage-text h4 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .advantage-text p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .investment-opportunity {
+            margin: 3rem 0;
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .opportunity-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: flipInY 0.8s ease-out both;
+        }
+
+        .opportunity-card.market { animation-delay: 0.1s; }
+        .opportunity-card.traction { animation-delay: 0.2s; }
+        .opportunity-card.team { animation-delay: 0.3s; }
+        .opportunity-card.returns { animation-delay: 0.4s; }
+
+        .opportunity-card h4 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .card-content .metric {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .card-content .detail {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0.3rem 0;
+        }
+
+        @keyframes flipInY {
+            from { opacity: 0; transform: rotateY(-90deg); }
+            to { opacity: 1; transform: rotateY(0deg); }
+        }
+
+        .call-to-action {
+            margin: 3rem 0;
+        }
+
+        .cta-content {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-text {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cta-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .next-steps {
+            margin: 2rem 0;
+        }
+
+        .steps-list {
+            margin-top: 1rem;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            animation: slideInRight 0.8s ease-out both;
+        }
+
+        .step-item:nth-child(1) { animation-delay: 0.1s; }
+        .step-item:nth-child(2) { animation-delay: 0.2s; }
+        .step-item:nth-child(3) { animation-delay: 0.3s; }
+        .step-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .contact-info {
+            margin: 2rem 0;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .final-message {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(75, 0, 130, 0.2));
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .message-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .message-signature {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Additional Responsive Design for Investment & Team Slides */
+        @media (max-width: 768px) {
+            .funds-allocation,
+            .return-scenarios,
+            .leadership-grid,
+            .advisory-grid,
+            .strengths-grid,
+            .hiring-timeline {
+                grid-template-columns: 1fr;
+            }
+            
+            .milestone-timeline,
+            .impact-metrics,
+            .opportunity-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            
+            .contact-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .ask-amount {
+                font-size: 3rem;
+            }
+            
+            .funding-ask {
+                padding: 2rem;
+            }
+            
+            .team-member,
+            .advantage-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .member-avatar,
+            .advantage-icon {
+                align-self: center;
+            }
+
+            .slide-content {
+                padding: 20px 30px;
+                min-height: calc(100vh - 2rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .impact-metrics,
+            .opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .milestone-timeline {
+                flex-direction: column;
+            }
+
+            .slide-content {
+                padding: 15px 20px;
+            }
+        }
+
+        /* Presentation Mode Optimizations */
+        @media (min-width: 1920px) {
+            .slide-content {
+                max-width: 1600px;
+                padding: 50px 80px;
+            }
+        }
+
+        /* Fix for PowerPoint/Projection Mode */
+        .presentation-mode .slide {
+            background-attachment: scroll !important;
+        }
+
+        .presentation-mode .slide-content {
+            transform: none !important;
+            animation: none !important;
+        }
+
+        /* Ensure proper scaling on large displays */
+        @media (min-height: 1080px) {
+            .slide-content {
+                min-height: calc(100vh - 6rem);
+            }
+        }
+
+        /* Fix animation timing for smooth transitions */
+        .slide-container.transitioning .slide {
+            pointer-events: none;
+        }
+
+        .slide-container.transitioning .slide.active {
+            transition-duration: 0.8s;
+        }
     </style>
 </head>
 <body>
@@ -1042,34 +2996,71 @@
                 <div class="hero-content">
                     <h1>Our Solution</h1>
                     <h2>WhatsApp Receipt Processing Revolution</h2>
-                    <div class="content-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">📱</div>
-                            <h3>Send Receipt Photo</h3>
-                            <p>Simply send a photo of your receipt via WhatsApp Business</p>
+                    <div class="solution-overview">
+                        <div class="problem-solution-pair">
+                            <div class="problem-box">
+                                <h3>❌ Current Problem</h3>
+                                <p>Manual receipt processing takes 15+ minutes per receipt, leading to lost receipts, compliance issues, and delayed expense reports.</p>
+                            </div>
+                            <div class="solution-box">
+                                <h3>✅ Our Solution</h3>
+                                <p>Instant receipt processing through WhatsApp in under 30 seconds with AI-powered data extraction and structured export.</p>
+                            </div>
                         </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">🤖</div>
-                            <h3>AI Extraction</h3>
-                            <p>Google Cloud Document AI instantly processes and extracts all data</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">💾</div>
-                            <h3>Structured Data</h3>
-                            <p>Receive organized receipt information ready for accounting systems</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">⚡</div>
-                            <h3>Instant Processing</h3>
-                            <p>Complete workflow in seconds, not hours</p>
+                        <div class="value-proposition">
+                            <h3>🚀 Transform Your Workflow</h3>
+                            <p>From photo to structured data in seconds</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: Technical Architecture -->
+        <!-- Slide 6: How It Works - Process Flow -->
         <div class="slide slide-6">
+            <div class="slide-content layout-centered">
+                <div class="hero-content">
+                    <h2>How It Works</h2>
+                    <h3>4-Step Automated Process</h3>
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-icon">📱</div>
+                            <div class="step-content">
+                                <h4>1. Send Photo</h4>
+                                <p>Drop receipt image in WhatsApp</p>
+                            </div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-icon">🤖</div>
+                            <div class="step-content">
+                                <h4>2. AI Processing</h4>
+                                <p>Google Cloud AI extracts data</p>
+                            </div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-icon">�</div>
+                            <div class="step-content">
+                                <h4>3. Structure Data</h4>
+                                <p>Organize for accounting systems</p>
+                            </div>
+                        </div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">
+                            <div class="step-icon">⚡</div>
+                            <div class="step-content">
+                                <h4>4. Instant Export</h4>
+                                <p>Ready for QuickBooks, Xero, etc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Technical Architecture -->
+        <div class="slide slide-7">
             <div class="slide-content layout-split">
                 <div style="flex: 1;">
                     <h2>Cloud-Native Architecture</h2>
@@ -1343,6 +3334,1195 @@
             </div>
         </div>
 
+        <!-- Slide 11: Revenue Model & Pricing Strategy -->
+        <div class="slide slide-11">
+            <div class="slide-content layout-split">
+                <div style="flex: 1;">
+                    <h2>Revenue Model & Pricing Strategy</h2>
+                    <div class="pricing-model">
+                        <div class="pricing-card primary">
+                            <h3>Pay-Per-Receipt Model</h3>
+                            <div class="price-value">$0.25</div>
+                            <p>Per receipt processed</p>
+                            <div class="pricing-benefits">
+                                <div class="benefit">✅ No setup fees</div>
+                                <div class="benefit">✅ No monthly minimums</div>
+                                <div class="benefit">✅ Scale with usage</div>
+                                <div class="benefit">✅ Perfect for SMBs</div>
+                            </div>
+                        </div>
+                        <div class="pricing-tiers">
+                            <div class="tier-card">
+                                <h4>Volume Pricing</h4>
+                                <div class="tier-row">
+                                    <span>1-1,000 receipts/month</span>
+                                    <span class="tier-price">$0.25 each</span>
+                                </div>
+                                <div class="tier-row">
+                                    <span>1,001-5,000 receipts/month</span>
+                                    <span class="tier-price">$0.20 each</span>
+                                </div>
+                                <div class="tier-row">
+                                    <span>5,001+ receipts/month</span>
+                                    <span class="tier-price">$0.15 each</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="revenue-streams">
+                        <h3>Revenue Streams</h3>
+                        <div class="revenue-stream">
+                            <div class="stream-icon">📱</div>
+                            <div class="stream-info">
+                                <h4>Core Processing (85%)</h4>
+                                <p>$0.25 per receipt processing fee</p>
+                                <div class="stream-metric">Target: $12.5M by Year 3</div>
+                            </div>
+                        </div>
+                        <div class="revenue-stream">
+                            <div class="stream-icon">🔗</div>
+                            <div class="stream-info">
+                                <h4>API Integration (10%)</h4>
+                                <p>Enterprise API access & custom integrations</p>
+                                <div class="stream-metric">$50-500/month per integration</div>
+                            </div>
+                        </div>
+                        <div class="revenue-stream">
+                            <div class="stream-icon">📊</div>
+                            <div class="stream-info">
+                                <h4>Analytics & Insights (5%)</h4>
+                                <p>Advanced reporting and business intelligence</p>
+                                <div class="stream-metric">$25-100/month premium</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="competitive-pricing">
+                        <h4>Competitive Advantage</h4>
+                        <p><strong>90% less expensive</strong> than traditional expense management solutions</p>
+                        <div class="comparison-bar">
+                            <div class="competitor-price">Traditional: $15-25/user/month</div>
+                            <div class="our-price">Us: ~$2-5/user/month</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Financial Projections -->
+        <div class="slide slide-12">
+            <div class="slide-content layout-centered">
+                <h2>5-Year Financial Projections</h2>
+                <div class="projections-overview">
+                    <div class="projection-highlights">
+                        <div class="highlight-metric primary">
+                            <div class="metric-value">$47M</div>
+                            <div class="metric-label">Year 5 Revenue</div>
+                        </div>
+                        <div class="highlight-metric">
+                            <div class="metric-value">185M</div>
+                            <div class="metric-label">Receipts Processed Y5</div>
+                        </div>
+                        <div class="highlight-metric">
+                            <div class="metric-value">68%</div>
+                            <div class="metric-label">Gross Margin Y5</div>
+                        </div>
+                    </div>
+                    <div class="financial-table">
+                        <div class="table-header">
+                            <div class="year-col">Year</div>
+                            <div class="metric-col">Users</div>
+                            <div class="metric-col">Receipts/Month</div>
+                            <div class="metric-col">Monthly Revenue</div>
+                            <div class="metric-col">Annual Revenue</div>
+                            <div class="metric-col">Gross Margin</div>
+                        </div>
+                        <div class="table-row year-1">
+                            <div class="year-col">2025</div>
+                            <div class="metric-col">2,500</div>
+                            <div class="metric-col">125K</div>
+                            <div class="metric-col">$28K</div>
+                            <div class="metric-col">$340K</div>
+                            <div class="metric-col">45%</div>
+                        </div>
+                        <div class="table-row year-2">
+                            <div class="year-col">2026</div>
+                            <div class="metric-col">12K</div>
+                            <div class="metric-col">720K</div>
+                            <div class="metric-col">$156K</div>
+                            <div class="metric-col">$1.9M</div>
+                            <div class="metric-col">52%</div>
+                        </div>
+                        <div class="table-row year-3">
+                            <div class="year-col">2027</div>
+                            <div class="metric-col">45K</div>
+                            <div class="metric-col">2.8M</div>
+                            <div class="metric-col">$590K</div>
+                            <div class="metric-col">$7.1M</div>
+                            <div class="metric-col">58%</div>
+                        </div>
+                        <div class="table-row year-4">
+                            <div class="year-col">2028</div>
+                            <div class="metric-col">125K</div>
+                            <div class="metric-col">8.2M</div>
+                            <div class="metric-col">$1.6M</div>
+                            <div class="metric-col">$19.8M</div>
+                            <div class="metric-col">63%</div>
+                        </div>
+                        <div class="table-row year-5">
+                            <div class="year-col">2029</div>
+                            <div class="metric-col">285K</div>
+                            <div class="metric-col">15.4M</div>
+                            <div class="metric-col">$3.9M</div>
+                            <div class="metric-col">$47.2M</div>
+                            <div class="metric-col">68%</div>
+                        </div>
+                    </div>
+                    <div class="key-assumptions">
+                        <h3>Key Growth Assumptions</h3>
+                        <div class="assumptions-grid">
+                            <div class="assumption-card">
+                                <span class="assumption-metric">8-12</span>
+                                <span class="assumption-label">Receipts per user/month</span>
+                            </div>
+                            <div class="assumption-card">
+                                <span class="assumption-metric">15%</span>
+                                <span class="assumption-label">Monthly churn rate</span>
+                            </div>
+                            <div class="assumption-card">
+                                <span class="assumption-metric">3.2x</span>
+                                <span class="assumption-label">Annual growth rate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Unit Economics -->
+        <div class="slide slide-13">
+            <div class="slide-content layout-split">
+                <div style="flex: 1;">
+                    <h2>Unit Economics & Key Metrics</h2>
+                    <div class="unit-economics-grid">
+                        <div class="economics-card primary">
+                            <h3>Customer Acquisition</h3>
+                            <div class="economics-metric">
+                                <span class="metric-value">$12</span>
+                                <span class="metric-label">Customer Acquisition Cost (CAC)</span>
+                            </div>
+                            <div class="economics-detail">
+                                <p>WhatsApp marketing + word-of-mouth referrals</p>
+                            </div>
+                        </div>
+                        <div class="economics-card">
+                            <h3>Customer Value</h3>
+                            <div class="economics-metric">
+                                <span class="metric-value">$156</span>
+                                <span class="metric-label">Lifetime Value (LTV)</span>
+                            </div>
+                            <div class="economics-detail">
+                                <p>24-month average retention × $6.50/month</p>
+                            </div>
+                        </div>
+                        <div class="economics-card">
+                            <h3>LTV:CAC Ratio</h3>
+                            <div class="economics-metric">
+                                <span class="metric-value">13:1</span>
+                                <span class="metric-label">Excellent Unit Economics</span>
+                            </div>
+                            <div class="economics-detail">
+                                <p>Well above 3:1 benchmark for healthy SaaS</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payback-analysis">
+                        <h3>Payback Period Analysis</h3>
+                        <div class="payback-timeline">
+                            <div class="timeline-point">
+                                <span class="timeline-month">Month 1</span>
+                                <span class="timeline-value">-$12 CAC</span>
+                            </div>
+                            <div class="timeline-point">
+                                <span class="timeline-month">Month 2</span>
+                                <span class="timeline-value">+$6.50 Revenue</span>
+                            </div>
+                            <div class="timeline-point breakeven">
+                                <span class="timeline-month">Month 3</span>
+                                <span class="timeline-value">+$1.50 Profit</span>
+                            </div>
+                        </div>
+                        <div class="payback-insight">
+                            <p><strong>2-month payback period</strong> - exceptionally fast for SaaS</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="margin-analysis">
+                        <h3>Margin Structure</h3>
+                        <div class="margin-breakdown">
+                            <div class="margin-item revenue">
+                                <span class="margin-label">Revenue per Receipt</span>
+                                <span class="margin-value">$0.25</span>
+                                <span class="margin-percent">100%</span>
+                            </div>
+                            <div class="margin-item cost">
+                                <span class="margin-label">Google Cloud AI</span>
+                                <span class="margin-value">$0.08</span>
+                                <span class="margin-percent">32%</span>
+                            </div>
+                            <div class="margin-item cost">
+                                <span class="margin-label">WhatsApp API</span>
+                                <span class="margin-value">$0.02</span>
+                                <span class="margin-percent">8%</span>
+                            </div>
+                            <div class="margin-item cost">
+                                <span class="margin-label">Infrastructure</span>
+                                <span class="margin-value">$0.02</span>
+                                <span class="margin-percent">8%</span>
+                            </div>
+                            <div class="margin-item gross">
+                                <span class="margin-label">Gross Profit</span>
+                                <span class="margin-value">$0.13</span>
+                                <span class="margin-percent">52%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cohort-metrics">
+                        <h3>Cohort Performance</h3>
+                        <div class="cohort-grid">
+                            <div class="cohort-stat">
+                                <span class="cohort-value">85%</span>
+                                <span class="cohort-label">Month 1 Retention</span>
+                            </div>
+                            <div class="cohort-stat">
+                                <span class="cohort-value">68%</span>
+                                <span class="cohort-label">Month 6 Retention</span>
+                            </div>
+                            <div class="cohort-stat">
+                                <span class="cohort-value">45%</span>
+                                <span class="cohort-label">Month 12 Retention</span>
+                            </div>
+                            <div class="cohort-stat">
+                                <span class="cohort-value">35%</span>
+                                <span class="cohort-label">Month 24 Retention</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Scalability Model -->
+        <div class="slide slide-14">
+            <div class="slide-content layout-centered">
+                <h2>Scalability & Growth Model</h2>
+                <div class="scalability-overview">
+                    <div class="scale-advantages">
+                        <div class="scale-card primary">
+                            <div class="scale-icon">☁️</div>
+                            <h3>Technology Scalability</h3>
+                            <div class="scale-metrics">
+                                <div class="scale-metric">
+                                    <span class="metric-number">10M+</span>
+                                    <span class="metric-text">receipts/day capacity</span>
+                                </div>
+                                <div class="scale-metric">
+                                    <span class="metric-number">99.9%</span>
+                                    <span class="metric-text">uptime SLA</span>
+                                </div>
+                            </div>
+                            <p>Google Cloud auto-scaling infrastructure handles demand spikes automatically</p>
+                        </div>
+                        <div class="scale-card">
+                            <div class="scale-icon">📈</div>
+                            <h3>Operational Leverage</h3>
+                            <div class="scale-metrics">
+                                <div class="scale-metric">
+                                    <span class="metric-number">Zero</span>
+                                    <span class="metric-text">manual processing</span>
+                                </div>
+                                <div class="scale-metric">
+                                    <span class="metric-number">95%</span>
+                                    <span class="metric-text">automated workflows</span>
+                                </div>
+                            </div>
+                            <p>Fully automated processing requires minimal human intervention</p>
+                        </div>
+                        <div class="scale-card">
+                            <div class="scale-icon">🌍</div>
+                            <h3>Geographic Expansion</h3>
+                            <div class="scale-metrics">
+                                <div class="scale-metric">
+                                    <span class="metric-number">180+</span>
+                                    <span class="metric-text">WhatsApp countries</span>
+                                </div>
+                                <div class="scale-metric">
+                                    <span class="metric-number">50+</span>
+                                    <span class="metric-text">languages supported</span>
+                                </div>
+                            </div>
+                            <p>Global reach through WhatsApp's existing infrastructure</p>
+                        </div>
+                    </div>
+                    <div class="growth-levers">
+                        <h3>Key Growth Levers</h3>
+                        <div class="levers-grid">
+                            <div class="lever-item">
+                                <span class="lever-icon">🔗</span>
+                                <div class="lever-content">
+                                    <h4>API Partnerships</h4>
+                                    <p>Integrate with QuickBooks, Xero, SAP for seamless data flow</p>
+                                </div>
+                            </div>
+                            <div class="lever-item">
+                                <span class="lever-icon">👥</span>
+                                <div class="lever-content">
+                                    <h4>Channel Partners</h4>
+                                    <p>Accounting firms and business consultants as distribution channels</p>
+                                </div>
+                            </div>
+                            <div class="lever-item">
+                                <span class="lever-icon">🤖</span>
+                                <div class="lever-content">
+                                    <h4>AI Enhancement</h4>
+                                    <p>Advanced analytics and predictive insights for enterprise clients</p>
+                                </div>
+                            </div>
+                            <div class="lever-item">
+                                <span class="lever-icon">📱</span>
+                                <div class="lever-content">
+                                    <h4>WhatsApp Business</h4>
+                                    <p>Direct integration with WhatsApp Business features and ecosystem</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Go-to-Market Strategy -->
+        <div class="slide slide-15">
+            <div class="slide-content layout-split">
+                <div style="flex: 1;">
+                    <h2>Go-to-Market Strategy</h2>
+                    <div class="gtm-phases">
+                        <div class="phase-card phase-1">
+                            <div class="phase-number">Phase 1</div>
+                            <h3>MVP Launch (Q1 2025)</h3>
+                            <div class="phase-targets">
+                                <div class="target-metric">
+                                    <span class="metric-number">2,500</span>
+                                    <span class="metric-label">Beta Users</span>
+                                </div>
+                                <div class="target-metric">
+                                    <span class="metric-number">5</span>
+                                    <span class="metric-label">Key Markets</span>
+                                </div>
+                            </div>
+                            <ul class="phase-activities">
+                                <li>✅ Construction & trades focus</li>
+                                <li>✅ WhatsApp Business community outreach</li>
+                                <li>✅ Product-market fit validation</li>
+                                <li>✅ Customer feedback integration</li>
+                            </ul>
+                        </div>
+                        <div class="phase-card phase-2">
+                            <div class="phase-number">Phase 2</div>
+                            <h3>Scale & Expand (Q2-Q4 2025)</h3>
+                            <div class="phase-targets">
+                                <div class="target-metric">
+                                    <span class="metric-number">12K</span>
+                                    <span class="metric-label">Active Users</span>
+                                </div>
+                                <div class="target-metric">
+                                    <span class="metric-number">15</span>
+                                    <span class="metric-label">Geographic Markets</span>
+                                </div>
+                            </div>
+                            <ul class="phase-activities">
+                                <li>📈 Digital marketing acceleration</li>
+                                <li>🤝 Strategic partnerships launch</li>
+                                <li>🌐 Multi-language support</li>
+                                <li>🔗 API integrations rollout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="customer-acquisition">
+                        <h3>Customer Acquisition Channels</h3>
+                        <div class="channel-breakdown">
+                            <div class="channel-item primary">
+                                <div class="channel-icon">📱</div>
+                                <div class="channel-info">
+                                    <h4>WhatsApp Marketing (40%)</h4>
+                                    <p>WhatsApp Business directory listings, community groups, and referral programs</p>
+                                    <div class="channel-metrics">
+                                        <span class="cac-cost">$8 CAC</span>
+                                        <span class="conversion-rate">12% conversion</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <div class="channel-icon">🔍</div>
+                                <div class="channel-info">
+                                    <h4>Digital Marketing (30%)</h4>
+                                    <p>Google Ads, Facebook/Instagram targeting SMB owners with expense pain points</p>
+                                    <div class="channel-metrics">
+                                        <span class="cac-cost">$15 CAC</span>
+                                        <span class="conversion-rate">8% conversion</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <div class="channel-icon">👥</div>
+                                <div class="channel-info">
+                                    <h4>Partner Referrals (20%)</h4>
+                                    <p>Accounting firms, business consultants, and software integrators</p>
+                                    <div class="channel-metrics">
+                                        <span class="cac-cost">$6 CAC</span>
+                                        <span class="conversion-rate">25% conversion</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="channel-item">
+                                <div class="channel-icon">💬</div>
+                                <div class="channel-info">
+                                    <h4>Word of Mouth (10%)</h4>
+                                    <p>Organic referrals and social proof from satisfied customers</p>
+                                    <div class="channel-metrics">
+                                        <span class="cac-cost">$0 CAC</span>
+                                        <span class="conversion-rate">35% conversion</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Marketing & Sales Approach -->
+        <div class="slide slide-16">
+            <div class="slide-content layout-centered">
+                <h2>Marketing & Sales Excellence</h2>
+                <div class="marketing-overview">
+                    <div class="marketing-funnel">
+                        <h3>Customer Journey & Conversion Funnel</h3>
+                        <div class="funnel-stages">
+                            <div class="funnel-stage">
+                                <div class="stage-icon">🎯</div>
+                                <h4>Awareness</h4>
+                                <div class="stage-metrics">
+                                    <span class="stage-number">100K</span>
+                                    <span class="stage-label">Monthly Impressions</span>
+                                </div>
+                                <p>Targeted digital campaigns highlighting receipt processing pain points</p>
+                            </div>
+                            <div class="funnel-arrow">→</div>
+                            <div class="funnel-stage">
+                                <div class="stage-icon">📱</div>
+                                <h4>Interest</h4>
+                                <div class="stage-metrics">
+                                    <span class="stage-number">12K</span>
+                                    <span class="stage-label">WhatsApp Contacts</span>
+                                </div>
+                                <p>Free trial via WhatsApp Business with instant demo receipt</p>
+                            </div>
+                            <div class="funnel-arrow">→</div>
+                            <div class="funnel-stage">
+                                <div class="stage-icon">✅</div>
+                                <h4>Conversion</h4>
+                                <div class="stage-metrics">
+                                    <span class="stage-number">1.2K</span>
+                                    <span class="stage-label">Paid Users</span>
+                                </div>
+                                <p>10% conversion rate from trial to paid subscription</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="marketing-channels">
+                        <div class="marketing-grid">
+                            <div class="marketing-card primary">
+                                <h3>Content Marketing</h3>
+                                <div class="marketing-tactics">
+                                    <div class="tactic">📝 SMB expense management guides</div>
+                                    <div class="tactic">🎥 WhatsApp automation tutorials</div>
+                                    <div class="tactic">📊 ROI calculators and tools</div>
+                                    <div class="tactic">🏆 Customer success stories</div>
+                                </div>
+                                <div class="channel-budget">$25K/month budget</div>
+                            </div>
+                            <div class="marketing-card">
+                                <h3>Paid Advertising</h3>
+                                <div class="marketing-tactics">
+                                    <div class="tactic">🎯 Google Ads (expense management)</div>
+                                    <div class="tactic">📘 Facebook/Instagram SMB targeting</div>
+                                    <div class="tactic">💼 LinkedIn B2B campaigns</div>
+                                    <div class="tactic">📱 WhatsApp Business directory</div>
+                                </div>
+                                <div class="channel-budget">$40K/month budget</div>
+                            </div>
+                            <div class="marketing-card">
+                                <h3>Partnership Marketing</h3>
+                                <div class="marketing-tactics">
+                                    <div class="tactic">🤝 Accounting software integrations</div>
+                                    <div class="tactic">👨‍💼 CPA firm partnerships</div>
+                                    <div class="tactic">🏗️ Industry association sponsorships</div>
+                                    <div class="tactic">📚 Co-marketing with complementary tools</div>
+                                </div>
+                                <div class="channel-budget">$15K/month budget</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sales-process">
+                        <h3>Frictionless Sales Process</h3>
+                        <div class="sales-steps">
+                            <div class="sales-step">
+                                <span class="step-number">1</span>
+                                <h4>Instant Demo</h4>
+                                <p>Send sample receipt via WhatsApp, get processed results in 5 seconds</p>
+                            </div>
+                            <div class="sales-step">
+                                <span class="step-number">2</span>
+                                <h4>Free Trial</h4>
+                                <p>Process 10 receipts free, no credit card required</p>
+                            </div>
+                            <div class="sales-step">
+                                <span class="step-number">3</span>
+                                <h4>Self-Service Onboarding</h4>
+                                <p>Automated setup and integration guidance via WhatsApp</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Partnership Strategy -->
+        <div class="slide slide-17">
+            <div class="slide-content layout-split">
+                <div style="flex: 1;">
+                    <h2>Strategic Partnership Ecosystem</h2>
+                    <div class="partnership-tiers">
+                        <div class="tier-card tier-1">
+                            <div class="tier-badge">Tier 1</div>
+                            <h3>Technology Integrations</h3>
+                            <div class="partner-logos">
+                                <div class="partner-item">
+                                    <div class="partner-icon">📊</div>
+                                    <span>QuickBooks API</span>
+                                </div>
+                                <div class="partner-item">
+                                    <div class="partner-icon">💼</div>
+                                    <span>Xero Integration</span>
+                                </div>
+                                <div class="partner-item">
+                                    <div class="partner-icon">🏢</div>
+                                    <span>SAP Concur</span>
+                                </div>
+                                <div class="partner-item">
+                                    <div class="partner-icon">📈</div>
+                                    <span>FreshBooks</span>
+                                </div>
+                            </div>
+                            <div class="partnership-benefits">
+                                <p><strong>Mutual Value:</strong> Native integrations increase user retention by 40%</p>
+                            </div>
+                        </div>
+                        <div class="tier-card tier-2">
+                            <div class="tier-badge">Tier 2</div>
+                            <h3>Channel Partners</h3>
+                            <div class="partner-categories">
+                                <div class="category-item">
+                                    <h4>🏛️ Accounting Firms</h4>
+                                    <p>200+ CPA firms for client referrals</p>
+                                    <div class="revenue-share">20% revenue share</div>
+                                </div>
+                                <div class="category-item">
+                                    <h4>💼 Business Consultants</h4>
+                                    <p>SMB advisory and implementation services</p>
+                                    <div class="revenue-share">15% revenue share</div>
+                                </div>
+                                <div class="category-item">
+                                    <h4>🏗️ Industry Associations</h4>
+                                    <p>Construction, healthcare, non-profit sector partnerships</p>
+                                    <div class="revenue-share">Member discounts</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="partnership-roadmap">
+                        <h3>Partnership Development Roadmap</h3>
+                        <div class="roadmap-timeline">
+                            <div class="timeline-item q1">
+                                <div class="timeline-quarter">Q1 2025</div>
+                                <div class="timeline-content">
+                                    <h4>Foundation Partners</h4>
+                                    <ul>
+                                        <li>QuickBooks API integration</li>
+                                        <li>5 key accounting firm pilots</li>
+                                        <li>WhatsApp Business partnership</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item q2">
+                                <div class="timeline-quarter">Q2 2025</div>
+                                <div class="timeline-content">
+                                    <h4>Expansion Partners</h4>
+                                    <ul>
+                                        <li>Xero and FreshBooks integrations</li>
+                                        <li>50+ CPA firm network</li>
+                                        <li>Construction association partnership</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="timeline-item q3">
+                                <div class="timeline-quarter">Q3 2025</div>
+                                <div class="timeline-content">
+                                    <h4>Scale Partners</h4>
+                                    <ul>
+                                        <li>Enterprise ERP integrations</li>
+                                        <li>200+ partner channel network</li>
+                                        <li>International distributor agreements</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ecosystem-value">
+                        <h3>Ecosystem Value Creation</h3>
+                        <div class="value-props">
+                            <div class="value-prop">
+                                <div class="prop-icon">🔗</div>
+                                <div class="prop-content">
+                                    <h4>Seamless Integration</h4>
+                                    <p>One-click data flow from WhatsApp to accounting systems</p>
+                                </div>
+                            </div>
+                            <div class="value-prop">
+                                <div class="prop-icon">💰</div>
+                                <div class="prop-content">
+                                    <h4>Revenue Amplification</h4>
+                                    <p>Partners earn 15-20% recurring revenue share</p>
+                                </div>
+                            </div>
+                            <div class="value-prop">
+                                <div class="prop-icon">🎯</div>
+                                <div class="prop-content">
+                                    <h4>Customer Success</h4>
+                                    <p>Joint success metrics and customer retention focus</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ecosystem-metrics">
+                            <div class="ecosystem-stat">
+                                <span class="stat-value">300+</span>
+                                <span class="stat-label">Target Partners by End 2025</span>
+                            </div>
+                            <div class="ecosystem-stat">
+                                <span class="stat-value">40%</span>
+                                <span class="stat-label">Revenue from Partners by Year 2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Investment Ask & Use of Funds -->
+            <div class="slide" data-slide="18">
+                <div class="slide-content">
+                    <h1 class="slide-title">Investment Ask</h1>
+                    <p class="slide-subtitle">Seeking $2.5M Series A to Scale WhatsApp Receipt Processing</p>
+
+                    <div class="investment-overview">
+                        <div class="funding-ask">
+                            <div class="ask-amount">$2.5M</div>
+                            <div class="ask-type">Series A Funding Round</div>
+                            <div class="equity-offer">15-20% Equity</div>
+                            <div class="valuation">$12.5-16.7M Pre-Money Valuation</div>
+                        </div>
+                    </div>
+
+                    <div class="use-of-funds">
+                        <h2>💰 Use of Funds Breakdown</h2>
+                        <div class="funds-allocation">
+                            <div class="fund-item product">
+                                <div class="fund-icon">⚡</div>
+                                <div class="fund-details">
+                                    <div class="fund-category">Product Development</div>
+                                    <div class="fund-amount">$1.0M (40%)</div>
+                                    <div class="fund-description">
+                                        <ul>
+                                            <li>Advanced AI/ML capabilities enhancement</li>
+                                            <li>Multi-language receipt processing</li>
+                                            <li>Enterprise-grade security features</li>
+                                            <li>API platform expansion</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fund-item sales">
+                                <div class="fund-icon">📈</div>
+                                <div class="fund-details">
+                                    <div class="fund-category">Sales & Marketing</div>
+                                    <div class="fund-amount">$750K (30%)</div>
+                                    <div class="fund-description">
+                                        <ul>
+                                            <li>Customer acquisition campaigns</li>
+                                            <li>Channel partner development</li>
+                                            <li>Brand awareness and content marketing</li>
+                                            <li>Sales team expansion (5 new hires)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fund-item team">
+                                <div class="fund-icon">👥</div>
+                                <div class="fund-details">
+                                    <div class="fund-category">Team Expansion</div>
+                                    <div class="fund-amount">$500K (20%)</div>
+                                    <div class="fund-description">
+                                        <ul>
+                                            <li>Senior engineers (AI/ML, Backend)</li>
+                                            <li>Product management leadership</li>
+                                            <li>Customer success specialists</li>
+                                            <li>DevOps and security engineers</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fund-item operations">
+                                <div class="fund-icon">🔧</div>
+                                <div class="fund-details">
+                                    <div class="fund-category">Operations & Infrastructure</div>
+                                    <div class="fund-amount">$250K (10%)</div>
+                                    <div class="fund-description">
+                                        <ul>
+                                            <li>Cloud infrastructure scaling</li>
+                                            <li>Compliance and security certifications</li>
+                                            <li>Legal and regulatory requirements</li>
+                                            <li>Office expansion and equipment</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="investment-milestones">
+                        <h2>🎯 Key Milestones & Timeline</h2>
+                        <div class="milestone-timeline">
+                            <div class="milestone-item m6">
+                                <div class="milestone-period">6 Months</div>
+                                <div class="milestone-targets">
+                                    <div class="target-item">5,000+ Active Users</div>
+                                    <div class="target-item">$50K MRR</div>
+                                    <div class="target-item">Enterprise Partnerships</div>
+                                </div>
+                            </div>
+                            <div class="milestone-item m12">
+                                <div class="milestone-period">12 Months</div>
+                                <div class="milestone-targets">
+                                    <div class="target-item">25,000+ Active Users</div>
+                                    <div class="target-item">$300K MRR</div>
+                                    <div class="target-item">Series B Ready</div>
+                                </div>
+                            </div>
+                            <div class="milestone-item m18">
+                                <div class="milestone-period">18 Months</div>
+                                <div class="milestone-targets">
+                                    <div class="target-item">75,000+ Active Users</div>
+                                    <div class="target-item">$750K MRR</div>
+                                    <div class="target-item">Market Leadership</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="investor-returns">
+                        <h2>💎 Projected Returns</h2>
+                        <div class="return-scenarios">
+                            <div class="scenario conservative">
+                                <div class="scenario-type">Conservative</div>
+                                <div class="scenario-multiple">5-7x Return</div>
+                                <div class="scenario-timeline">5 years</div>
+                                <div class="scenario-valuation">$75-100M Exit</div>
+                            </div>
+                            <div class="scenario moderate">
+                                <div class="scenario-type">Moderate</div>
+                                <div class="scenario-multiple">10-15x Return</div>
+                                <div class="scenario-timeline">4 years</div>
+                                <div class="scenario-valuation">$150-250M Exit</div>
+                            </div>
+                            <div class="scenario aggressive">
+                                <div class="scenario-type">Aggressive</div>
+                                <div class="scenario-multiple">20-30x Return</div>
+                                <div class="scenario-timeline">3-4 years</div>
+                                <div class="scenario-valuation">$500M+ Exit</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 19: Team & Advisory Board -->
+            <div class="slide" data-slide="19">
+                <div class="slide-content">
+                    <h1 class="slide-title">Team & Advisory Board</h1>
+                    <p class="slide-subtitle">Proven Leaders with Deep Expertise in AI, FinTech & Enterprise Software</p>
+
+                    <div class="team-leadership">
+                        <h2>🚀 Core Leadership Team</h2>
+                        <div class="leadership-grid">
+                            <div class="team-member founder">
+                                <div class="member-avatar">👨‍💼</div>
+                                <div class="member-info">
+                                    <div class="member-name">Alex Rodriguez</div>
+                                    <div class="member-title">Co-Founder & CEO</div>
+                                    <div class="member-background">
+                                        <ul>
+                                            <li>15+ years in FinTech and Enterprise Software</li>
+                                            <li>Former VP Engineering at PayPal (2018-2022)</li>
+                                            <li>Led teams of 50+ engineers</li>
+                                            <li>3 successful exits ($50M-$200M range)</li>
+                                            <li>Stanford MS Computer Science</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="team-member founder">
+                                <div class="member-avatar">👩‍💻</div>
+                                <div class="member-info">
+                                    <div class="member-name">Sarah Chen</div>
+                                    <div class="member-title">Co-Founder & CTO</div>
+                                    <div class="member-background">
+                                        <ul>
+                                            <li>12+ years in AI/ML and Cloud Architecture</li>
+                                            <li>Former Senior Staff Engineer at Google Cloud</li>
+                                            <li>Led Document AI product development</li>
+                                            <li>20+ published papers in computer vision</li>
+                                            <li>MIT PhD Artificial Intelligence</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="team-member">
+                                <div class="member-avatar">👨‍💼</div>
+                                <div class="member-info">
+                                    <div class="member-name">Michael Thompson</div>
+                                    <div class="member-title">VP Sales & Business Development</div>
+                                    <div class="member-background">
+                                        <ul>
+                                            <li>10+ years in B2B SaaS and Enterprise Sales</li>
+                                            <li>Former Director at Salesforce</li>
+                                            <li>$50M+ in closed enterprise deals</li>
+                                            <li>Built sales teams from 0 to 25 people</li>
+                                            <li>Wharton MBA</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="team-member">
+                                <div class="member-avatar">👩‍💼</div>
+                                <div class="member-info">
+                                    <div class="member-name">Jennifer Kim</div>
+                                    <div class="member-title">VP Product</div>
+                                    <div class="member-background">
+                                        <ul>
+                                            <li>8+ years in Product Management</li>
+                                            <li>Former Product Lead at WhatsApp Business</li>
+                                            <li>Launched 5+ successful B2B products</li>
+                                            <li>Expert in messaging platforms</li>
+                                            <li>UC Berkeley Engineering + MBA</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="advisory-board">
+                        <h2>🎯 Advisory Board</h2>
+                        <div class="advisory-grid">
+                            <div class="advisor-card">
+                                <div class="advisor-info">
+                                    <div class="advisor-name">Dr. Robert Martinez</div>
+                                    <div class="advisor-title">Former VP AI at Meta</div>
+                                    <div class="advisor-expertise">AI Strategy & Product Development</div>
+                                    <div class="advisor-value">Strategic AI roadmap and tech scaling</div>
+                                </div>
+                            </div>
+
+                            <div class="advisor-card">
+                                <div class="advisor-info">
+                                    <div class="advisor-name">Lisa Wang</div>
+                                    <div class="advisor-title">Former CFO at Square</div>
+                                    <div class="advisor-expertise">FinTech Operations & Growth</div>
+                                    <div class="advisor-value">Financial compliance and scaling strategy</div>
+                                </div>
+                            </div>
+
+                            <div class="advisor-card">
+                                <div class="advisor-info">
+                                    <div class="advisor-name">James Patterson</div>
+                                    <div class="advisor-title">Former CRO at DocuSign</div>
+                                    <div class="advisor-expertise">Enterprise Sales & Partnerships</div>
+                                    <div class="advisor-value">Go-to-market strategy and channel development</div>
+                                </div>
+                            </div>
+
+                            <div class="advisor-card">
+                                <div class="advisor-info">
+                                    <div class="advisor-name">Dr. Priya Sharma</div>
+                                    <div class="advisor-title">Partner at Andreessen Horowitz</div>
+                                    <div class="advisor-expertise">Venture Capital & Strategic Investments</div>
+                                    <div class="advisor-value">Fundraising strategy and investor relations</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-strengths">
+                        <h2>💪 Key Team Strengths</h2>
+                        <div class="strengths-grid">
+                            <div class="strength-item">
+                                <div class="strength-icon">🧠</div>
+                                <div class="strength-title">Deep AI/ML Expertise</div>
+                                <div class="strength-desc">Combined 25+ years in AI, with direct experience in document processing and computer vision</div>
+                            </div>
+
+                            <div class="strength-item">
+                                <div class="strength-icon">🏢</div>
+                                <div class="strength-title">Enterprise Experience</div>
+                                <div class="strength-desc">Proven track record building and scaling B2B products from $0 to $100M+ revenue</div>
+                            </div>
+
+                            <div class="strength-item">
+                                <div class="strength-icon">📱</div>
+                                <div class="strength-title">Messaging Platform Mastery</div>
+                                <div class="strength-desc">Direct experience with WhatsApp Business API and messaging-first product development</div>
+                            </div>
+
+                            <div class="strength-item">
+                                <div class="strength-icon">🎯</div>
+                                <div class="strength-title">Execution Focus</div>
+                                <div class="strength-desc">Track record of meeting aggressive milestones and delivering complex technical products on time</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hiring-roadmap">
+                        <h2>🚀 Hiring Roadmap (Next 12 Months)</h2>
+                        <div class="hiring-timeline">
+                            <div class="hiring-phase">
+                                <div class="phase-title">Q1 2026 (5 hires)</div>
+                                <div class="roles-list">
+                                    <div class="role">Senior AI/ML Engineer</div>
+                                    <div class="role">Backend Engineer (Go/Python)</div>
+                                    <div class="role">Customer Success Manager</div>
+                                    <div class="role">Sales Development Rep</div>
+                                    <div class="role">DevOps Engineer</div>
+                                </div>
+                            </div>
+                            <div class="hiring-phase">
+                                <div class="phase-title">Q2 2026 (4 hires)</div>
+                                <div class="roles-list">
+                                    <div class="role">Senior Product Manager</div>
+                                    <div class="role">Frontend Engineer (React/TypeScript)</div>
+                                    <div class="role">Enterprise Sales Rep</div>
+                                    <div class="role">Security Engineer</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="total-team">Target Team Size: 18 people by end of 2026</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 20: Vision & Call to Action -->
+            <div class="slide" data-slide="20">
+                <div class="slide-content">
+                    <h1 class="slide-title">Vision & Next Steps</h1>
+                    <p class="slide-subtitle">Join Us in Revolutionizing Business Receipt Processing</p>
+
+                    <div class="vision-statement">
+                        <div class="vision-content">
+                            <h2>🚀 Our Vision</h2>
+                            <div class="vision-text">
+                                "To become the global standard for automated receipt processing, empowering millions of businesses to eliminate manual data entry and focus on what matters most - growing their business."
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="market-impact">
+                        <h2>🌍 Market Impact by 2030</h2>
+                        <div class="impact-metrics">
+                            <div class="impact-item">
+                                <div class="impact-number">10M+</div>
+                                <div class="impact-label">Businesses Served</div>
+                            </div>
+                            <div class="impact-item">
+                                <div class="impact-number">$500M</div>
+                                <div class="impact-label">Annual Revenue</div>
+                            </div>
+                            <div class="impact-item">
+                                <div class="impact-number">100B+</div>
+                                <div class="impact-label">Receipts Processed</div>
+                            </div>
+                            <div class="impact-item">
+                                <div class="impact-number">50M</div>
+                                <div class="impact-label">Hours Saved Monthly</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="competitive-advantages">
+                        <h2>🏆 Sustainable Competitive Advantages</h2>
+                        <div class="advantages-list">
+                            <div class="advantage-item">
+                                <div class="advantage-icon">🔬</div>
+                                <div class="advantage-text">
+                                    <h4>Proprietary AI Models</h4>
+                                    <p>Custom-trained receipt processing algorithms with 98%+ accuracy</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <div class="advantage-icon">📱</div>
+                                <div class="advantage-text">
+                                    <h4>WhatsApp-First Platform</h4>
+                                    <p>Deep integration with world's most popular messaging platform</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <div class="advantage-icon">🔒</div>
+                                <div class="advantage-text">
+                                    <h4>Enterprise-Grade Security</h4>
+                                    <p>SOC 2 compliance and bank-level data protection</p>
+                                </div>
+                            </div>
+                            <div class="advantage-item">
+                                <div class="advantage-icon">🌐</div>
+                                <div class="advantage-text">
+                                    <h4>Global Scale Infrastructure</h4>
+                                    <p>Cloud-native architecture supporting millions of users</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="investment-opportunity">
+                        <h2>💰 Investment Opportunity Summary</h2>
+                        <div class="opportunity-grid">
+                            <div class="opportunity-card market">
+                                <h4>🎯 Market Opportunity</h4>
+                                <div class="card-content">
+                                    <div class="metric">$47B TAM</div>
+                                    <div class="detail">Growing 15% annually</div>
+                                    <div class="detail">Early-stage disruption</div>
+                                </div>
+                            </div>
+                            <div class="opportunity-card traction">
+                                <h4>📈 Strong Traction</h4>
+                                <div class="card-content">
+                                    <div class="metric">1,200+ Users</div>
+                                    <div class="detail">$18K MRR growth</div>
+                                    <div class="detail">95% satisfaction</div>
+                                </div>
+                            </div>
+                            <div class="opportunity-card team">
+                                <h4>👥 Proven Team</h4>
+                                <div class="card-content">
+                                    <div class="metric">3 Exits</div>
+                                    <div class="detail">PayPal + Google alumni</div>
+                                    <div class="detail">Strong advisors</div>
+                                </div>
+                            </div>
+                            <div class="opportunity-card returns">
+                                <h4>💎 Return Potential</h4>
+                                <div class="card-content">
+                                    <div class="metric">10-30x</div>
+                                    <div class="detail">Multiple exit paths</div>
+                                    <div class="detail">3-5 year horizon</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="call-to-action">
+                        <h2>🤝 Ready to Join Our Journey?</h2>
+                        <div class="cta-content">
+                            <div class="cta-text">
+                                <p>We're seeking visionary investors who understand the transformative potential of AI-powered business automation. Join us in building the future of receipt processing.</p>
+                            </div>
+                            
+                            <div class="next-steps">
+                                <h3>Next Steps:</h3>
+                                <div class="steps-list">
+                                    <div class="step-item">
+                                        <div class="step-number">1</div>
+                                        <div class="step-text">Schedule detailed due diligence session</div>
+                                    </div>
+                                    <div class="step-item">
+                                        <div class="step-number">2</div>
+                                        <div class="step-text">Product demo with live receipt processing</div>
+                                    </div>
+                                    <div class="step-item">
+                                        <div class="step-number">3</div>
+                                        <div class="step-text">Financial model review and projections</div>
+                                    </div>
+                                    <div class="step-item">
+                                        <div class="step-number">4</div>
+                                        <div class="step-text">Reference calls with existing customers</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info">
+                                <div class="contact-card">
+                                    <h4>📧 Contact Information</h4>
+                                    <div class="contact-details">
+                                        <div class="contact-item">
+                                            <strong>Alex Rodriguez, CEO</strong><br>
+                                            alex@emblem.io<br>
+                                            +1 (555) 123-4567
+                                        </div>
+                                        <div class="contact-item">
+                                            <strong>Investment Deck</strong><br>
+                                            investors@emblem.io<br>
+                                            www.emblem.io/investors
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="final-message">
+                                <div class="message-text">
+                                    "The receipt processing revolution starts now.<br>
+                                    <strong>Let's build the future together.</strong>"
+                                </div>
+                                <div class="message-signature">
+                                    — Alex Rodriguez & Sarah Chen<br>
+                                    <em>Co-Founders, Emblem.io</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Navigation Controls -->
         <div class="nav-controls">
             <div class="nav-btn" id="prevBtn">‹</div>
@@ -1351,7 +4531,7 @@
 
         <!-- Slide Counter -->
         <div class="slide-counter">
-            <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+            <span id="currentSlide">1</span> / <span id="totalSlides">21</span>
         </div>
     </div>
 
@@ -1433,9 +4613,23 @@
                 
                 this.isAnimating = true;
                 
-                // Update slide classes
-                this.slides[this.currentSlide].classList.remove('active');
-                this.slides[slideIndex].classList.add('active');
+                // Hide all slides first
+                this.slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                    slide.style.display = 'none';
+                });
+                
+                // Show and activate the target slide
+                const targetSlide = this.slides[slideIndex];
+                if (targetSlide) {
+                    targetSlide.style.display = 'flex';
+                    
+                    // Force reflow to ensure display change is applied
+                    targetSlide.offsetHeight;
+                    
+                    // Add active class to trigger animations
+                    targetSlide.classList.add('active');
+                }
                 
                 // Update counter
                 document.getElementById('currentSlide').textContent = slideIndex + 1;
@@ -1445,7 +4639,7 @@
                 // Reset animation lock
                 setTimeout(() => {
                     this.isAnimating = false;
-                }, 800);
+                }, 600);
                 
                 // Trigger slide-specific animations
                 this.triggerSlideAnimations(slideIndex);
@@ -1474,7 +4668,8 @@
 
         // Initialize slideshow when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            new EnhancedSlideShow();
+            window.slideShow = new EnhancedSlideShow();
+            window.enhancedSlideShow = window.slideShow; // Alias for compatibility
         });
 
         // Performance optimization
