@@ -1,80 +1,107 @@
 {
-  "Report": {
-    "Recommendations": [
-      "Consider using consistent AI attribution in commit authors",
-      "Track AI model versions used for development history",
-      "Document AI assistance patterns for workflow optimization"
-    ],
-    "Statistics": {
-      "TotalCommits": 3,
-      "PossibleAICommits": 3,
-      "AIAssistedCommits": 0,
-      "AIPercentage": 0.0,
-      "HumanCommits": 0
+  "commits": [
+    {
+      "Hash": "7c28cf3c5ae1d6ee89baa17685cdc6a259533a2f",
+      "ShortHash": "7c28cf3",
+      "Message": "≡ƒöº Complete automation system deployment with all project files",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T16:41:08-04:00",
+      "AIScore": 2.5,
+      "AILikelihood": "Low",
+      "Indicators": [
+        "Technical Patterns: automation",
+        "Detailed Message Length: 65 chars (+1)"
+      ],
+      "PossibleLLM": "Human"
     },
-    "TopAICommits": null,
-    "AllCommits": [
-      {
-        "Indicators": [
-          "AI Tools Mentioned: ai",
-          "Medium Probability: configure",
-          "Detailed Commit Message"
-        ],
-        "ShortHash": "7276a47",
-        "PossibleLLM": "Claude AI / GitHub Copilot",
-        "Message": "≡ƒº¬ Test: AI attribution automation system configured",
-        "Author": "thisis-romar",
-        "AILikelihood": [
-          "Very High",
-          "High",
-          "Medium"
-        ],
-        "AIScore": 8,
-        "Date": "2025-10-06 16:36:30 -0400",
-        "Hash": "7276a47fd3d6b7b1b7d33422e6a3aa36e21d2604"
-      },
-      {
-        "Indicators": [
-          "High Probability: comprehensive",
-          "AI Tools Mentioned: copilot",
-          "AI Tools Mentioned: claude",
-          "Conventional Commit Format",
-          "Detailed Commit Message"
-        ],
-        "ShortHash": "c4d9495",
-        "PossibleLLM": "Claude AI / GitHub Copilot",
-        "Message": "feat: Add comprehensive GitHub Copilot instructions for WhatsApp receipts processing",
-        "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
-        "AILikelihood": [
-          "Very High",
-          "High",
-          "Medium"
-        ],
-        "AIScore": 16,
-        "Date": "2025-10-06 15:38:16 -0400",
-        "Hash": "c4d949530529f711b2b340a0f0ecf06569f253a6"
-      },
-      {
-        "Indicators": [
-          "Detailed Commit Message"
-        ],
-        "ShortHash": "fb9a94c",
-        "PossibleLLM": "Human",
-        "Message": "Initial commit: WhatsApp Receipt Capture with Image Retrieval System",
-        "Author": "thisis-romar",
-        "AILikelihood": "Medium",
-        "AIScore": 1,
-        "Date": "2025-10-06 15:24:37 -0400",
-        "Hash": "fb9a94cee04fa94349c18054bfa1ce804ba4c8c8"
-      }
-    ]
+    {
+      "Hash": "8bd7c26c81316f952793ad3888bf3e770d1624a0",
+      "ShortHash": "8bd7c26",
+      "Message": "≡ƒñû Implement comprehensive AI attribution automation system",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T16:39:17-04:00",
+      "AIScore": 10.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "High Probability: comprehensive",
+        "AI Tools Mentioned: ai",
+        "Technical Patterns: automation",
+        "Detailed Message Length: 61 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "7276a47fd3d6b7b1b7d33422e6a3aa36e21d2604",
+      "ShortHash": "7276a47",
+      "Message": "≡ƒº¬ Test: AI attribution automation system configured",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T16:36:30-04:00",
+      "AIScore": 9.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: ai",
+        "Technical Patterns: automation",
+        "Medium Probability: configure",
+        "Detailed Message Length: 54 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "c4d949530529f711b2b340a0f0ecf06569f253a6",
+      "ShortHash": "c4d9495",
+      "Message": "feat: Add comprehensive GitHub Copilot instructions for WhatsApp receipts processing",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
+      "Date": "2025-10-06T15:38:16-04:00",
+      "AIScore": 16.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "High Probability: comprehensive",
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
+        "Conventional Commit Format",
+        "Detailed Message Length: 84 chars (+1)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
+    {
+      "Hash": "fb9a94cee04fa94349c18054bfa1ce804ba4c8c8",
+      "ShortHash": "fb9a94c",
+      "Message": "Initial commit: WhatsApp Receipt Capture with Image Retrieval System",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T15:24:37-04:00",
+      "AIScore": 1.0,
+      "AILikelihood": "Low",
+      "Indicators": [
+        "Detailed Message Length: 68 chars (+1)"
+      ],
+      "PossibleLLM": "Human"
+    }
+  ],
+  "summary": {
+    "totalCommits": 5,
+    "highConfidenceAI": 3,
+    "aiAssistedCommits": 3,
+    "aiAssistanceRate": 60.0
   },
-  "ProjectPath": "H:\\- emblem.iO -\\emblem.io-whatsapp-recipts",
-  "Tools": {
-    "Version": "1.0",
-    "LLMIdentifier": "LLMCommitIdentifier.ps1",
-    "Project": "WhatsApp Receipts Processing System"
-  },
-  "TimeRange": "4 weeks ago",
-  "GeneratedAt": "2025-10-06 16:38:40"
+  "metadata": {
+    "repository": "emblem.io-whatsapp-recipts",
+    "timeRange": "7 days ago",
+    "analysisVersion": "1.0.0",
+    "generatedAt": "2025-10-06T17:01:22.0729034-04:00"
+  }
 }

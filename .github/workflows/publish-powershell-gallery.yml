@@ -1,0 +1,276 @@
+# PowerShell Gallery Publishing Workflow
+
+name: 'Publish AI Attribution Tools'
+
+on:
+  push:
+    branches: [main]
+    paths: 
+      - 'AIAttributionTools/**'
+      - 'GitVersion.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'AIAttributionTools/**'
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Force publish to PowerShell Gallery (bypass version check)'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  MODULE_NAME: 'AIAttributionTools'
+  MODULE_PATH: './AIAttributionTools'
+
+jobs:
+  test-module:
+    runs-on: windows-latest
+    name: 'Test PowerShell Module'
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.10.2
+      with:
+        versionSpec: '5.x'
+    
+    - name: Determine Version
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.10.2
+      with:
+        useConfigFile: true
+        configFilePath: GitVersion.yml
+    
+    - name: Update Module Manifest Version
+      shell: pwsh
+      run: |
+        $manifestPath = Join-Path $env:MODULE_PATH "$env:MODULE_NAME.psd1"
+        $manifest = Test-ModuleManifest -Path $manifestPath
+        
+        # Update version in manifest
+        $newVersion = '${{ steps.gitversion.outputs.semVer }}'
+        Write-Host "Updating module version to: $newVersion"
+        
+        $manifestContent = Get-Content -Path $manifestPath -Raw
+        $manifestContent = $manifestContent -replace "ModuleVersion\s*=\s*'[\d\.]+'", "ModuleVersion = '$newVersion'"
+        Set-Content -Path $manifestPath -Value $manifestContent
+        
+        Write-Host "Updated manifest version to $newVersion"
+    
+    - name: Test Module Manifest
+      shell: pwsh
+      run: |
+        $manifestPath = Join-Path $env:MODULE_PATH "$env:MODULE_NAME.psd1"
+        Write-Host "Testing module manifest: $manifestPath"
+        
+        try {
+          $manifest = Test-ModuleManifest -Path $manifestPath -Verbose
+          Write-Host "✅ Module manifest is valid"
+          Write-Host "   Name: $($manifest.Name)"
+          Write-Host "   Version: $($manifest.Version)"
+          Write-Host "   Author: $($manifest.Author)"
+          Write-Host "   Description: $($manifest.Description)"
+        } catch {
+          Write-Error "❌ Module manifest validation failed: $_"
+          exit 1
+        }
+    
+    - name: Import and Test Module Functions
+      shell: pwsh
+      run: |
+        Write-Host "Testing module import and core functions..."
+        
+        # Import module
+        Import-Module $env:MODULE_PATH -Force -Verbose
+        
+        # Test core function availability
+        $requiredCommands = @('Invoke-LLMCommitAnalysis')
+        
+        foreach ($cmd in $requiredCommands) {
+          $command = Get-Command -Name $cmd -ErrorAction SilentlyContinue
+          if ($command) {
+            Write-Host "✅ Command available: $cmd"
+          } else {
+            Write-Error "❌ Missing command: $cmd"
+            exit 1
+          }
+        }
+        
+        Write-Host "✅ All required commands are available"
+    
+    - name: Run Module Tests (if available)
+      shell: pwsh
+      run: |
+        $testsPath = Join-Path $env:MODULE_PATH "Tests"
+        if (Test-Path $testsPath) {
+          Write-Host "Running Pester tests..."
+          
+          if (Get-Module -ListAvailable Pester) {
+            Invoke-Pester -Path $testsPath -OutputFormat NUnitXml -OutputFile TestResults.xml
+          } else {
+            Write-Host "⚠️  Pester not available - skipping tests"
+          }
+        } else {
+          Write-Host "ℹ️  No tests directory found - skipping unit tests"
+        }
+    
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: TestResults.xml
+  
+  publish-gallery:
+    runs-on: windows-latest
+    needs: test-module
+    if: github.event_name == 'release' || (github.event_name == 'workflow_dispatch' && github.event.inputs.force_publish == 'true')
+    name: 'Publish to PowerShell Gallery'
+    
+    steps:
+    - name: Checkout repository  
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.10.2
+      with:
+        versionSpec: '5.x'
+    
+    - name: Determine Version
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.10.2
+      with:
+        useConfigFile: true
+        configFilePath: GitVersion.yml
+    
+    - name: Update Module Version for Publishing
+      shell: pwsh
+      run: |
+        $manifestPath = Join-Path $env:MODULE_PATH "$env:MODULE_NAME.psd1"
+        $newVersion = '${{ steps.gitversion.outputs.semVer }}'
+        
+        Write-Host "Preparing module for PowerShell Gallery publication..."
+        Write-Host "Version: $newVersion"
+        
+        # Update manifest version
+        $manifestContent = Get-Content -Path $manifestPath -Raw
+        $manifestContent = $manifestContent -replace "ModuleVersion\s*=\s*'[\d\.]+'", "ModuleVersion = '$newVersion'"
+        Set-Content -Path $manifestPath -Value $manifestContent
+        
+        # Verify the update
+        $manifest = Test-ModuleManifest -Path $manifestPath
+        Write-Host "Updated module version: $($manifest.Version)"
+    
+    - name: Check PowerShell Gallery for Existing Version
+      shell: pwsh
+      run: |
+        $newVersion = '${{ steps.gitversion.outputs.semVer }}'
+        
+        try {
+          $existingModule = Find-Module -Name $env:MODULE_NAME -RequiredVersion $newVersion -ErrorAction SilentlyContinue
+          if ($existingModule) {
+            Write-Warning "Version $newVersion already exists in PowerShell Gallery"
+            if ('${{ github.event.inputs.force_publish }}' -ne 'true') {
+              Write-Error "Use force_publish option to override version check"
+              exit 1
+            } else {
+              Write-Host "Force publish enabled - will attempt to update existing version"
+            }
+          } else {
+            Write-Host "✅ Version $newVersion is available for publishing"
+          }
+        } catch {
+          Write-Host "✅ Module not found in gallery or version check failed - proceeding with publish"
+        }
+    
+    - name: Publish to PowerShell Gallery
+      shell: pwsh
+      env:
+        PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+      run: |
+        if (-not $env:PSGALLERY_API_KEY) {
+          Write-Error "❌ PowerShell Gallery API key not found in secrets"
+          Write-Error "   Add PSGALLERY_API_KEY to repository secrets"
+          exit 1
+        }
+        
+        Write-Host "🚀 Publishing AIAttributionTools to PowerShell Gallery..."
+        
+        try {
+          # Publish module
+          Publish-Module -Path $env:MODULE_PATH -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose -Force
+          
+          Write-Host "✅ Successfully published to PowerShell Gallery!"
+          Write-Host "🔗 Module URL: https://www.powershellgallery.com/packages/$env:MODULE_NAME"
+          
+          # Wait a moment for gallery to update, then verify
+          Start-Sleep -Seconds 30
+          
+          $publishedModule = Find-Module -Name $env:MODULE_NAME -ErrorAction SilentlyContinue
+          if ($publishedModule) {
+            Write-Host "✅ Verified: Module is available in PowerShell Gallery"
+            Write-Host "   Latest Version: $($publishedModule.Version)"
+          }
+          
+        } catch {
+          Write-Error "❌ PowerShell Gallery publish failed: $_"
+          Write-Error "   Check API key and module manifest"
+          exit 1
+        }
+    
+    - name: Create GitHub Release Assets
+      shell: pwsh
+      run: |
+        $version = '${{ steps.gitversion.outputs.semVer }}'
+        $moduleZip = "AIAttributionTools-v$version.zip"
+        
+        # Create distribution package
+        Compress-Archive -Path $env:MODULE_PATH -DestinationPath $moduleZip
+        
+        Write-Host "📦 Created distribution package: $moduleZip"
+        echo "MODULE_ZIP=$moduleZip" >> $env:GITHUB_ENV
+    
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      if: github.event_name == 'release'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{ env.MODULE_ZIP }}
+        asset_name: ${{ env.MODULE_ZIP }}
+        asset_content_type: application/zip
+
+  notify-community:
+    runs-on: ubuntu-latest
+    needs: [test-module, publish-gallery]
+    if: success() && github.event_name == 'release'
+    name: 'Community Notification'
+    
+    steps:
+    - name: Notify Discord/Slack (Optional)
+      shell: bash
+      run: |
+        echo "🎉 AIAttributionTools published successfully!"
+        echo "Version: ${{ needs.publish-gallery.outputs.version }}"
+        echo "PowerShell Gallery: https://www.powershellgallery.com/packages/AIAttributionTools"
+        
+        # Add webhook notifications here if configured
+        # Example: Discord webhook for community channels
+        if [ ! -z "${{ secrets.DISCORD_WEBHOOK_URL }}" ]; then
+          curl -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+               -H "Content-Type: application/json" \
+               -d '{
+                 "content": "🤖 **AIAttributionTools v${{ needs.publish-gallery.outputs.version }}** published to PowerShell Gallery!\n\nInstall with: `Install-Module AIAttributionTools`\n\nGitHub: https://github.com/${{ github.repository }}\nPowerShell Gallery: https://www.powershellgallery.com/packages/AIAttributionTools"
+               }'
+        fi
