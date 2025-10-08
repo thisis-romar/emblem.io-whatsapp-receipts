@@ -51,19 +51,50 @@ A sophisticated investor presentation platform featuring:
 
 ## Development Dependencies
 
-### AI Attribution Tools (External)
+### PowerShell Module Suite (AI Development Tools)
+
+#### ✅ AIAttributionTools - PUBLISHED & OPERATIONAL
 For development workflow attribution analysis:
 ```powershell
-# Install AI Attribution Tools from PowerShell Gallery
+# Install from PowerShell Gallery (WORKING)
 Install-Module -Name AIAttributionTools -Scope CurrentUser
 
-# Use in development workflow for commit analysis
+# Perform AI assistance analysis (84.6% AI assistance rate confirmed)
 Invoke-LLMCommitAnalysis -ShowDetails
 ```
+**Status**: ✅ Published on PowerShell Gallery | [Gallery Link](https://www.powershellgallery.com/packages/AIAttributionTools)  
+**Current Analysis**: 84.6% AI assistance rate (11/13 commits), High-confidence AI detection working  
+
+#### ❌ ChatAnalysisTools - PENDING PUBLICATION  
+VS Code chat history analysis and developer workflow correlation:
+```powershell
+# Module exists locally, PowerShell Gallery publication FAILED
+# Install-Module -Name ChatAnalysisTools -Scope CurrentUser  # NOT YET AVAILABLE
+```
+**Status**: ❌ Local module valid, PowerShell Gallery 404 error | **Action Required**: Debug publishing workflow  
+
+#### ❌ DeveloperEnvironmentTools - PENDING PUBLICATION
+Development environment automation and git workflow configuration:
+```powershell
+# Module exists locally, PowerShell Gallery publication FAILED  
+# Install-Module -Name DeveloperEnvironmentTools -Scope CurrentUser  # NOT YET AVAILABLE
+```
+**Status**: ❌ Local module valid, PowerShell Gallery 404 error | **Action Required**: Debug publishing workflow  
+
+#### 🔧 CRITICAL ISSUE - GitHub Actions Publishing Workflow
+**Problem**: Manual workflow execution FAILING (red X in GitHub Actions)  
+**Workflow**: [PowerShell Modules Publisher](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/actions/workflows/powershell-modules-publisher.yml)  
+**Root Cause**: Unknown - requires debugging of POWERSHELL_GALLERY_API_KEY authentication or module publishing logic  
+**Impact**: 2/3 modules unpublished despite valid local manifests  
+
+**Immediate Action Required**: 
+1. Debug failed GitHub Actions workflow logs
+2. Verify POWERSHELL_GALLERY_API_KEY secret permissions  
+3. Resolve publishing failures for ChatAnalysisTools & DeveloperEnvironmentTools
 
 **Repository**: [AI Attribution Tools](https://github.com/thisis-romar/ai-attribution-tools)  
 **Documentation**: See AI Attribution Tools repository for complete usage guide  
-**Note**: AI Attribution Tools has moved to its own dedicated repository for better community focus and reusability across projects.
+**Architecture**: Clean separation - AI tools migrated to dedicated repository for community reusability
 
 ## Architecture Principles
 

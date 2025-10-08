@@ -2,16 +2,16 @@ name: 🚀 AI Attribution Tools Release
 
 on:
   push:
-    branches: [ main ]
-    paths: 
-      - 'AIAttributionTools/**'
-      - '.github/workflows/ai-attribution-release.yml'
-  pull_request:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'AIAttributionTools/**'
+      - "AIAttributionTools/**"
+      - ".github/workflows/ai-attribution-release.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "AIAttributionTools/**"
   release:
-    types: [ published ]
+    types: [published]
 
 env:
   MODULE_NAME: AIAttributionTools
@@ -21,238 +21,238 @@ jobs:
   test:
     name: 🧪 Test Module
     runs-on: windows-latest
-    
+
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Required for GitVersion
-        
-    - name: Setup PowerShell
-      uses: azure/powershell@v1
-      with:
-        inlineScript: |
-          Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
-          Write-Host "OS Version: $($PSVersionTable.OS)"
-        azPSVersion: "latest"
-        
-    - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.10.2
-      with:
-        versionSpec: '5.x'
-        
-    - name: Calculate Version
-      id: gitversion
-      uses: gittools/actions/gitversion/execute@v0.10.2
-      with:
-        useConfigFile: true
-        configFilePath: ${{ env.MODULE_PATH }}/GitVersion.yml
-        
-    - name: Display GitVersion Variables
-      run: |
-        echo "SemVer: ${{ steps.gitversion.outputs.semVer }}"
-        echo "MajorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}"
-        echo "PreReleaseTag: ${{ steps.gitversion.outputs.preReleaseTag }}"
-        
-    - name: Update Module Version
-      shell: pwsh
-      run: |
-        $manifestPath = "${{ env.MODULE_PATH }}/${{ env.MODULE_NAME }}.psd1"
-        $version = "${{ steps.gitversion.outputs.majorMinorPatch }}"
-        $prerelease = "${{ steps.gitversion.outputs.preReleaseTag }}"
-        
-        Write-Host "Updating module version to: $version"
-        
-        # Update module manifest
-        Update-ModuleManifest -Path $manifestPath -ModuleVersion $version
-        
-        if ($prerelease) {
-          Update-ModuleManifest -Path $manifestPath -Prerelease $prerelease
-        }
-        
-        # Verify update
-        $manifest = Test-ModuleManifest -Path $manifestPath
-        Write-Host "Updated manifest version: $($manifest.Version)"
-        
-    - name: Test Module Import
-      shell: pwsh
-      run: |
-        # Test module import
-        Import-Module "${{ env.MODULE_PATH }}" -Force -Verbose
-        
-        # Verify functions are available
-        $commands = Get-Command -Module ${{ env.MODULE_NAME }}
-        Write-Host "Available commands: $($commands.Count)"
-        $commands | Select-Object Name, CommandType | Format-Table
-        
-        # Test core function
-        if (Get-Command -Name "Invoke-LLMCommitAnalysis" -ErrorAction SilentlyContinue) {
-          Write-Host "✅ Core function available"
-        } else {
-          throw "❌ Core function not found"
-        }
-        
-    - name: Run Pester Tests
-      shell: pwsh
-      run: |
-        # Install Pester if not available
-        if (!(Get-Module -ListAvailable -Name Pester)) {
-          Install-Module -Name Pester -Force -SkipPublisherCheck
-        }
-        
-        # Run tests (if test files exist)
-        $testsPath = "${{ env.MODULE_PATH }}/Tests"
-        if (Test-Path $testsPath) {
-          Invoke-Pester -Path $testsPath -OutputFormat NUnitXml -OutputFile TestResults.xml
-        } else {
-          Write-Host "No tests found at $testsPath"
-        }
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for GitVersion
+
+      - name: Setup PowerShell
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+            Write-Host "OS Version: $($PSVersionTable.OS)"
+          azPSVersion: "latest"
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.10.2
+        with:
+          versionSpec: "5.x"
+
+      - name: Calculate Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.10.2
+        with:
+          useConfigFile: true
+          configFilePath: ${{ env.MODULE_PATH }}/GitVersion.yml
+
+      - name: Display GitVersion Variables
+        run: |
+          echo "SemVer: ${{ steps.gitversion.outputs.semVer }}"
+          echo "MajorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }}"
+          echo "PreReleaseTag: ${{ steps.gitversion.outputs.preReleaseTag }}"
+
+      - name: Update Module Version
+        shell: pwsh
+        run: |
+          $manifestPath = "${{ env.MODULE_PATH }}/${{ env.MODULE_NAME }}.psd1"
+          $version = "${{ steps.gitversion.outputs.majorMinorPatch }}"
+          $prerelease = "${{ steps.gitversion.outputs.preReleaseTag }}"
+
+          Write-Host "Updating module version to: $version"
+
+          # Update module manifest
+          Update-ModuleManifest -Path $manifestPath -ModuleVersion $version
+
+          if ($prerelease) {
+            Update-ModuleManifest -Path $manifestPath -Prerelease $prerelease
+          }
+
+          # Verify update
+          $manifest = Test-ModuleManifest -Path $manifestPath
+          Write-Host "Updated manifest version: $($manifest.Version)"
+
+      - name: Test Module Import
+        shell: pwsh
+        run: |
+          # Test module import
+          Import-Module "${{ env.MODULE_PATH }}" -Force -Verbose
+
+          # Verify functions are available
+          $commands = Get-Command -Module ${{ env.MODULE_NAME }}
+          Write-Host "Available commands: $($commands.Count)"
+          $commands | Select-Object Name, CommandType | Format-Table
+
+          # Test core function
+          if (Get-Command -Name "Invoke-LLMCommitAnalysis" -ErrorAction SilentlyContinue) {
+            Write-Host "✅ Core function available"
+          } else {
+            throw "❌ Core function not found"
+          }
+
+      - name: Run Pester Tests
+        shell: pwsh
+        run: |
+          # Install Pester if not available
+          if (!(Get-Module -ListAvailable -Name Pester)) {
+            Install-Module -Name Pester -Force -SkipPublisherCheck
+          }
+
+          # Run tests (if test files exist)
+          $testsPath = "${{ env.MODULE_PATH }}/Tests"
+          if (Test-Path $testsPath) {
+            Invoke-Pester -Path $testsPath -OutputFormat NUnitXml -OutputFile TestResults.xml
+          } else {
+            Write-Host "No tests found at $testsPath"
+          }
 
   build:
     name: 📦 Build Release Package
     needs: test
     runs-on: windows-latest
     if: github.event_name == 'release' || (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[release]'))
-    
+
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        
-    - name: Setup GitVersion
-      uses: gittools/actions/gitversion/setup@v0.10.2
-      with:
-        versionSpec: '5.x'
-        
-    - name: Calculate Version
-      id: gitversion  
-      uses: gittools/actions/gitversion/execute@v0.10.2
-      with:
-        useConfigFile: true
-        configFilePath: ${{ env.MODULE_PATH }}/GitVersion.yml
-        
-    - name: Create Release Package
-      shell: pwsh
-      run: |
-        $version = "${{ steps.gitversion.outputs.majorMinorPatch }}"
-        $prerelease = "${{ steps.gitversion.outputs.preReleaseTag }}"
-        
-        Write-Host "Creating release package for version: $version"
-        
-        # Update module version
-        $manifestPath = "${{ env.MODULE_PATH }}/${{ env.MODULE_NAME }}.psd1"
-        Update-ModuleManifest -Path $manifestPath -ModuleVersion $version
-        
-        if ($prerelease) {
-          Update-ModuleManifest -Path $manifestPath -Prerelease $prerelease
-        }
-        
-        # Create release directory
-        $releaseDir = "release/${{ env.MODULE_NAME }}"
-        New-Item -Path $releaseDir -ItemType Directory -Force
-        
-        # Copy module files
-        Copy-Item -Path "${{ env.MODULE_PATH }}/*" -Destination $releaseDir -Recurse -Force
-        
-        # Create ZIP package
-        $packageName = "${{ env.MODULE_NAME }}-v$version"
-        if ($prerelease) { $packageName += "-$prerelease" }
-        
-        Compress-Archive -Path $releaseDir -DestinationPath "$packageName.zip" -Force
-        
-        Write-Host "Package created: $packageName.zip"
-        
-        # Set outputs for next steps
-        echo "PACKAGE_NAME=$packageName" >> $env:GITHUB_OUTPUT
-        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
-        echo "PRERELEASE=$prerelease" >> $env:GITHUB_OUTPUT
-        
-    - name: Upload Release Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ env.MODULE_NAME }}-package
-        path: "*.zip"
-        
-    - name: Create GitHub Release
-      if: github.event_name == 'release'
-      uses: softprops/action-gh-release@v1
-      with:
-        files: "*.zip"
-        tag_name: ${{ github.event.release.tag_name }}
-        name: "AI Attribution Tools v${{ steps.gitversion.outputs.majorMinorPatch }}"
-        body: |
-          # 🤖 AI Attribution Tools v${{ steps.gitversion.outputs.majorMinorPatch }}
-          
-          ## 📦 Installation
-          
-          ### PowerShell Gallery (Recommended)
-          ```powershell
-          Install-Module -Name AIAttributionTools -Scope CurrentUser
-          Import-Module AIAttributionTools
-          ```
-          
-          ### Direct Download
-          Download the ZIP package and extract to your PowerShell modules directory:
-          - **User modules**: `$env:USERPROFILE\Documents\PowerShell\Modules\`
-          - **System modules**: `$env:PROGRAMFILES\PowerShell\Modules\`
-          
-          ### VS Code Copilot Integration (Windows 11)
-          ```powershell
-          # Download and run the installer
-          Invoke-WebRequest -Uri "https://github.com/thisis-romar/emblem.io-whatsapp-receipts/raw/main/AIAttributionTools/Install-AIAttributionTools.ps1" -OutFile "Install-AIAttributionTools.ps1"
-          .\Install-AIAttributionTools.ps1
-          ```
-          
-          ## 🚀 Quick Start
-          ```powershell
-          # Analyze recent commits for AI assistance
-          Invoke-LLMCommitAnalysis -Since "7 days ago"
-          
-          # Quick analysis with alias
-          llm-analyze -ShowDetails
-          
-          # View all available commands  
-          Get-Command -Module AIAttributionTools
-          ```
-          
-          ## 📖 Documentation
-          - [Complete Documentation](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/blob/main/AIAttributionTools/README.md)
-          - [API Reference](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/blob/main/AIAttributionTools/docs/API.md)
-          - [Examples](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/tree/main/AIAttributionTools/examples)
-          
-          ---
-          
-          **Full Changelog**: https://github.com/thisis-romar/emblem.io-whatsapp-receipts/compare/v${{ steps.gitversion.outputs.previousVersion }}...v${{ steps.gitversion.outputs.majorMinorPatch }}
-        prerelease: ${{ steps.gitversion.outputs.preReleaseTag != '' }}
-        
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v0.10.2
+        with:
+          versionSpec: "5.x"
+
+      - name: Calculate Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.10.2
+        with:
+          useConfigFile: true
+          configFilePath: ${{ env.MODULE_PATH }}/GitVersion.yml
+
+      - name: Create Release Package
+        shell: pwsh
+        run: |
+          $version = "${{ steps.gitversion.outputs.majorMinorPatch }}"
+          $prerelease = "${{ steps.gitversion.outputs.preReleaseTag }}"
+
+          Write-Host "Creating release package for version: $version"
+
+          # Update module version
+          $manifestPath = "${{ env.MODULE_PATH }}/${{ env.MODULE_NAME }}.psd1"
+          Update-ModuleManifest -Path $manifestPath -ModuleVersion $version
+
+          if ($prerelease) {
+            Update-ModuleManifest -Path $manifestPath -Prerelease $prerelease
+          }
+
+          # Create release directory
+          $releaseDir = "release/${{ env.MODULE_NAME }}"
+          New-Item -Path $releaseDir -ItemType Directory -Force
+
+          # Copy module files
+          Copy-Item -Path "${{ env.MODULE_PATH }}/*" -Destination $releaseDir -Recurse -Force
+
+          # Create ZIP package
+          $packageName = "${{ env.MODULE_NAME }}-v$version"
+          if ($prerelease) { $packageName += "-$prerelease" }
+
+          Compress-Archive -Path $releaseDir -DestinationPath "$packageName.zip" -Force
+
+          Write-Host "Package created: $packageName.zip"
+
+          # Set outputs for next steps
+          echo "PACKAGE_NAME=$packageName" >> $env:GITHUB_OUTPUT
+          echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+          echo "PRERELEASE=$prerelease" >> $env:GITHUB_OUTPUT
+
+      - name: Upload Release Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.MODULE_NAME }}-package
+          path: "*.zip"
+
+      - name: Create GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "*.zip"
+          tag_name: ${{ github.event.release.tag_name }}
+          name: "AI Attribution Tools v${{ steps.gitversion.outputs.majorMinorPatch }}"
+          body: |
+            # 🤖 AI Attribution Tools v${{ steps.gitversion.outputs.majorMinorPatch }}
+
+            ## 📦 Installation
+
+            ### PowerShell Gallery (Recommended)
+            ```powershell
+            Install-Module -Name AIAttributionTools -Scope CurrentUser
+            Import-Module AIAttributionTools
+            ```
+
+            ### Direct Download
+            Download the ZIP package and extract to your PowerShell modules directory:
+            - **User modules**: `$env:USERPROFILE\Documents\PowerShell\Modules\`
+            - **System modules**: `$env:PROGRAMFILES\PowerShell\Modules\`
+
+            ### VS Code Copilot Integration (Windows 11)
+            ```powershell
+            # Download and run the installer
+            Invoke-WebRequest -Uri "https://github.com/thisis-romar/emblem.io-whatsapp-receipts/raw/main/AIAttributionTools/Install-AIAttributionTools.ps1" -OutFile "Install-AIAttributionTools.ps1"
+            .\Install-AIAttributionTools.ps1
+            ```
+
+            ## 🚀 Quick Start
+            ```powershell
+            # Analyze recent commits for AI assistance
+            Invoke-LLMCommitAnalysis -Since "7 days ago"
+
+            # Quick analysis with alias
+            llm-analyze -ShowDetails
+
+            # View all available commands  
+            Get-Command -Module AIAttributionTools
+            ```
+
+            ## 📖 Documentation
+            - [Complete Documentation](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/blob/main/AIAttributionTools/README.md)
+            - [API Reference](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/blob/main/AIAttributionTools/docs/API.md)
+            - [Examples](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/tree/main/AIAttributionTools/examples)
+
+            ---
+
+            **Full Changelog**: https://github.com/thisis-romar/emblem.io-whatsapp-receipts/compare/v${{ steps.gitversion.outputs.previousVersion }}...v${{ steps.gitversion.outputs.majorMinorPatch }}
+          prerelease: ${{ steps.gitversion.outputs.preReleaseTag != '' }}
+
   publish:
-    name: 📚 Publish to PowerShell Gallery  
+    name: 📚 Publish to PowerShell Gallery
     needs: [test, build]
     runs-on: windows-latest
     if: github.event_name == 'release' && !github.event.release.prerelease
     environment: production
-    
+
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      
-    - name: Download Release Package
-      uses: actions/download-artifact@v3
-      with:
-        name: ${{ env.MODULE_NAME }}-package
-        
-    - name: Publish to PowerShell Gallery
-      shell: pwsh
-      env:
-        PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
-      run: |
-        # Extract package
-        Expand-Archive -Path "*.zip" -DestinationPath "./extracted" -Force
-        $modulePath = (Get-ChildItem "./extracted/${{ env.MODULE_NAME }}" -Directory).FullName
-        
-        # Publish to PowerShell Gallery
-        Write-Host "Publishing ${{ env.MODULE_NAME }} to PowerShell Gallery..."
-        Publish-Module -Path $modulePath -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
-        
-        Write-Host "✅ Module published successfully!"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Release Package
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.MODULE_NAME }}-package
+
+      - name: Publish to PowerShell Gallery
+        shell: pwsh
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        run: |
+          # Extract package
+          Expand-Archive -Path "*.zip" -DestinationPath "./extracted" -Force
+          $modulePath = (Get-ChildItem "./extracted/${{ env.MODULE_NAME }}" -Directory).FullName
+
+          # Publish to PowerShell Gallery
+          Write-Host "Publishing ${{ env.MODULE_NAME }} to PowerShell Gallery..."
+          Publish-Module -Path $modulePath -NuGetApiKey $env:PSGALLERY_API_KEY -Verbose
+
+          Write-Host "✅ Module published successfully!"

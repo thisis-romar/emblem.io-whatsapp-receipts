@@ -1,17 +1,72 @@
 {
   "summary": {
-    "highConfidenceAI": 9,
-    "totalCommits": 11,
-    "aiAssistanceRate": 81.8,
-    "aiAssistedCommits": 9
+    "highConfidenceAI": 10,
+    "totalCommits": 14,
+    "aiAssistanceRate": 85.7,
+    "aiAssistedCommits": 12
   },
   "metadata": {
     "repository": "emblem.io-whatsapp-recipts",
     "analysisVersion": "1.0.0",
     "timeRange": "30 days ago",
-    "generatedAt": "2025-10-07T13:25:12.5610455-04:00"
+    "generatedAt": "2025-10-07T20:38:18.8032587-04:00"
   },
   "commits": [
+    {
+      "Hash": "e5a99ee0411ad7401acd9c5dd588af3c1f8bb431",
+      "ShortHash": "e5a99ee",
+      "Message": "fix: Resolve PowerShell Gallery publishing workflow errors",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:32:03-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 58 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "03bdb01fa4bceba9ba10c37c69f05f51d57f65ae",
+      "ShortHash": "03bdb01",
+      "Message": "feat: Add comprehensive PowerShell Modules Publisher workflow",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:16:45-04:00",
+      "AIScore": 6.0,
+      "AILikelihood": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "High Probability: comprehensive",
+        "Conventional Commit Format",
+        "Detailed Message Length: 61 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "8cb9ef763ee2f5a7b7859e4ccefc7f7ccc8bce41",
+      "ShortHash": "8cb9ef7",
+      "Message": "docs: Add comprehensive PowerShell Gallery publication action plan - All modules ready for publication",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T13:46:45-04:00",
+      "AIScore": 7.0,
+      "AILikelihood": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "High Probability: comprehensive",
+        "Conventional Commit Format",
+        "Detailed Message Length: 102 chars (+2)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
     {
       "Hash": "0c4ba41f6400bb3fb2e889e14d8013fc9f8ad49f",
       "ShortHash": "0c4ba41",
