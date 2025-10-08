@@ -46,8 +46,8 @@
         PSData = @{
             # PowerShell Gallery metadata
             Tags = @('Development', 'Environment', 'Automation', 'Git', 'Workflow', 'DevOps', 'Setup', 'Configuration')
-            LicenseUri = 'https://github.com/thisis-romar/developer-environment-tools/blob/main/LICENSE'
-            ProjectUri = 'https://github.com/thisis-romar/developer-environment-tools'
+            LicenseUri = 'https://github.com/thisis-romar/emblem.io-whatsapp-receipts/blob/main/modules/DeveloperEnvironmentTools/LICENSE'
+            ProjectUri = 'https://github.com/thisis-romar/emblem.io-whatsapp-receipts'
             IconUri = ''
             ReleaseNotes = @'
 ## v1.0.0 - Initial Release
