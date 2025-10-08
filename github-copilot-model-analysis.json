@@ -1,60 +1,354 @@
 {
-  "Report": {
-    "Recommendations": [
-      "Consider using consistent AI attribution in commit authors",
-      "Track AI model versions used for development history",
-      "Document AI assistance patterns for workflow optimization"
-    ],
-    "Statistics": {
-      "TotalCommits": 2,
-      "PossibleAICommits": 2,
-      "AIAssistedCommits": 0,
-      "AIPercentage": 0.0,
-      "HumanCommits": 0
+  "summary": {
+    "highConfidenceAI": 10,
+    "totalCommits": 18,
+    "aiAssistanceRate": 88.9,
+    "aiAssistedCommits": 16
+  },
+  "metadata": {
+    "repository": "emblem.io-whatsapp-recipts",
+    "analysisVersion": "1.0.0",
+    "timeRange": "30 days ago",
+    "generatedAt": "2025-10-07T21:38:58.0153318-04:00"
+  },
+  "commits": [
+    {
+      "Hash": "65715e265b25d3cc077d8b20dfbc9e76769694cc",
+      "ShortHash": "65715e2",
+      "Message": "fix: Correct PowerShell module repository URLs and add manual publishing guide",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T21:29:31-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 78 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
     },
-    "TopAICommits": null,
-    "AllCommits": [
-      {
-        "Indicators": [
-          "High Probability: comprehensive",
-          "AI Tools Mentioned: copilot",
-          "Conventional Commit Format",
-          "Detailed Commit Message"
-        ],
-        "ShortHash": "6034477",
-        "PossibleLLM": "Claude AI / GitHub Copilot",
-        "Message": "feat: Add comprehensive GitHub Copilot instructions for WhatsApp receipts processing",
-        "Author": "thisis-romar",
-        "AILikelihood": [
-          "Very High",
-          "High",
-          "Medium"
-        ],
-        "AIScore": 11,
-        "Date": "2025-10-06 15:38:16 -0400",
-        "Hash": "6034477e1be136653236dd144fe0dfd5dea95b94"
-      },
-      {
-        "Indicators": [
-          "Detailed Commit Message"
-        ],
-        "ShortHash": "fb9a94c",
-        "PossibleLLM": "Human",
-        "Message": "Initial commit: WhatsApp Receipt Capture with Image Retrieval System",
-        "Author": "thisis-romar",
-        "AILikelihood": "Medium",
-        "AIScore": 1,
-        "Date": "2025-10-06 15:24:37 -0400",
-        "Hash": "fb9a94cee04fa94349c18054bfa1ce804ba4c8c8"
-      }
-    ]
-  },
-  "ProjectPath": "H:\\- emblem.iO -\\emblem.io-whatsapp-recipts",
-  "Tools": {
-    "Version": "1.0",
-    "LLMIdentifier": "LLMCommitIdentifier.ps1",
-    "Project": "WhatsApp Receipts Processing System"
-  },
-  "TimeRange": "8 weeks ago",
-  "GeneratedAt": "2025-10-06 16:11:02"
+    {
+      "Hash": "6a04de6c655de9101257e76d27cb7d47f680b570",
+      "ShortHash": "6a04de6",
+      "Message": "fix: Resolve git repository structure - convert submodules to regular directories",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:58:46-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 81 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "f0096d63828624b506a59228e3d4e256f3836853",
+      "ShortHash": "f0096d6",
+      "Message": "feat: Add PowerShell modules documentation and fix workflow triggers",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:47:24-04:00",
+      "AIScore": 4.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Documentation Patterns: documentation",
+        "Conventional Commit Format",
+        "Detailed Message Length: 68 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "f213536f78f492acc51f2b29774fc354c0aa788f",
+      "ShortHash": "f213536",
+      "Message": "feat: Add PowerShell modules for publishing to PowerShell Gallery",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:41:17-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 65 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "e5a99ee0411ad7401acd9c5dd588af3c1f8bb431",
+      "ShortHash": "e5a99ee",
+      "Message": "fix: Resolve PowerShell Gallery publishing workflow errors",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:32:03-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 58 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "03bdb01fa4bceba9ba10c37c69f05f51d57f65ae",
+      "ShortHash": "03bdb01",
+      "Message": "feat: Add comprehensive PowerShell Modules Publisher workflow",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:16:45-04:00",
+      "AIScore": 6.0,
+      "AILikelihood": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "High Probability: comprehensive",
+        "Conventional Commit Format",
+        "Detailed Message Length: 61 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "8cb9ef763ee2f5a7b7859e4ccefc7f7ccc8bce41",
+      "ShortHash": "8cb9ef7",
+      "Message": "docs: Add comprehensive PowerShell Gallery publication action plan - All modules ready for publication",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T13:46:45-04:00",
+      "AIScore": 7.0,
+      "AILikelihood": [
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "High Probability: comprehensive",
+        "Conventional Commit Format",
+        "Detailed Message Length: 102 chars (+2)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "0c4ba41f6400bb3fb2e889e14d8013fc9f8ad49f",
+      "ShortHash": "0c4ba41",
+      "Message": "docs: Refactor copilot instructions to reflect architectural migration completion",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T18:28:49-04:00",
+      "AIScore": 8.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "Conventional Commit Format",
+        "Detailed Message Length: 81 chars (+1)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
+    {
+      "Hash": "4cf1117f4b42325cba402c1082c631edd1357034",
+      "ShortHash": "4cf1117",
+      "Message": "refactor: Complete AI Attribution Tools migration to dedicated repository",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T18:18:52-04:00",
+      "AIScore": 8.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: ai",
+        "Conventional Commit Format",
+        "Detailed Message Length: 73 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "6fb51944413288d6acd11bfa5ec9495153470f11",
+      "ShortHash": "6fb5194",
+      "Message": "refactor: Architectural separation of AI Attribution Tools from WhatsApp receipts project",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T17:59:23-04:00",
+      "AIScore": 8.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: ai",
+        "Conventional Commit Format",
+        "Detailed Message Length: 89 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "e0bbe214ce0a50150c18c95ec1ba5013a0525cb7",
+      "ShortHash": "e0bbe21",
+      "Message": "docs: Create comprehensive API, configuration, and examples documentation",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T17:44:39-04:00",
+      "AIScore": 9.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Medium Probability: create",
+        "High Probability: comprehensive",
+        "Documentation Patterns: documentation",
+        "Conventional Commit Format",
+        "Detailed Message Length: 73 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "25a2eb763d549be942fb0b83ed08a1eddf866f3b",
+      "ShortHash": "25a2eb7",
+      "Message": "docs: Update copilot instructions with live status and critical GitHub releases fix",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T17:39:53-04:00",
+      "AIScore": 10.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Medium Probability: update",
+        "AI Tools Mentioned: copilot",
+        "Conventional Commit Format",
+        "Detailed Message Length: 83 chars (+1)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
+    {
+      "Hash": "e28681d8e029004e45e91edb9674965b311fd367",
+      "ShortHash": "e28681d",
+      "Message": "feat: Complete AIAttributionTools v1.0.0 PowerShell module for community distribution",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T17:07:09-04:00",
+      "AIScore": 8.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: ai",
+        "Conventional Commit Format",
+        "Detailed Message Length: 85 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "7c28cf3c5ae1d6ee89baa17685cdc6a259533a2f",
+      "ShortHash": "7c28cf3",
+      "Message": "≡ƒöº Complete automation system deployment with all project files",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T16:41:08-04:00",
+      "AIScore": 2.5,
+      "AILikelihood": "Low",
+      "Indicators": [
+        "Technical Patterns: automation",
+        "Detailed Message Length: 65 chars (+1)"
+      ],
+      "PossibleLLM": "Human"
+    },
+    {
+      "Hash": "8bd7c26c81316f952793ad3888bf3e770d1624a0",
+      "ShortHash": "8bd7c26",
+      "Message": "≡ƒñû Implement comprehensive AI attribution automation system",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T16:39:17-04:00",
+      "AIScore": 10.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: ai",
+        "Technical Patterns: automation",
+        "High Probability: comprehensive",
+        "Detailed Message Length: 61 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "7276a47fd3d6b7b1b7d33422e6a3aa36e21d2604",
+      "ShortHash": "7276a47",
+      "Message": "≡ƒº¬ Test: AI attribution automation system configured",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T16:36:30-04:00",
+      "AIScore": 9.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Medium Probability: configure",
+        "AI Tools Mentioned: ai",
+        "Technical Patterns: automation",
+        "Detailed Message Length: 54 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "c4d949530529f711b2b340a0f0ecf06569f253a6",
+      "ShortHash": "c4d9495",
+      "Message": "feat: Add comprehensive GitHub Copilot instructions for WhatsApp receipts processing",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
+      "Date": "2025-10-06T15:38:16-04:00",
+      "AIScore": 16.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
+        "High Probability: comprehensive",
+        "Conventional Commit Format",
+        "Detailed Message Length: 84 chars (+1)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
+    {
+      "Hash": "fb9a94cee04fa94349c18054bfa1ce804ba4c8c8",
+      "ShortHash": "fb9a94c",
+      "Message": "Initial commit: WhatsApp Receipt Capture with Image Retrieval System",
+      "Author": "thisis-romar",
+      "Date": "2025-10-06T15:24:37-04:00",
+      "AIScore": 1.0,
+      "AILikelihood": "Low",
+      "Indicators": [
+        "Detailed Message Length: 68 chars (+1)"
+      ],
+      "PossibleLLM": "Human"
+    }
+  ]
 }

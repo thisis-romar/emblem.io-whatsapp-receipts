@@ -1,17 +1,86 @@
 {
   "summary": {
     "highConfidenceAI": 10,
-    "totalCommits": 14,
-    "aiAssistanceRate": 85.7,
-    "aiAssistedCommits": 12
+    "totalCommits": 18,
+    "aiAssistanceRate": 88.9,
+    "aiAssistedCommits": 16
   },
   "metadata": {
     "repository": "emblem.io-whatsapp-recipts",
     "analysisVersion": "1.0.0",
     "timeRange": "30 days ago",
-    "generatedAt": "2025-10-07T20:38:18.8032587-04:00"
+    "generatedAt": "2025-10-07T21:38:58.0153318-04:00"
   },
   "commits": [
+    {
+      "Hash": "65715e265b25d3cc077d8b20dfbc9e76769694cc",
+      "ShortHash": "65715e2",
+      "Message": "fix: Correct PowerShell module repository URLs and add manual publishing guide",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T21:29:31-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 78 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "6a04de6c655de9101257e76d27cb7d47f680b570",
+      "ShortHash": "6a04de6",
+      "Message": "fix: Resolve git repository structure - convert submodules to regular directories",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:58:46-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 81 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "f0096d63828624b506a59228e3d4e256f3836853",
+      "ShortHash": "f0096d6",
+      "Message": "feat: Add PowerShell modules documentation and fix workflow triggers",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:47:24-04:00",
+      "AIScore": 4.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Documentation Patterns: documentation",
+        "Conventional Commit Format",
+        "Detailed Message Length: 68 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
+    {
+      "Hash": "f213536f78f492acc51f2b29774fc354c0aa788f",
+      "ShortHash": "f213536",
+      "Message": "feat: Add PowerShell modules for publishing to PowerShell Gallery",
+      "Author": "thisis-romar",
+      "Date": "2025-10-07T20:41:17-04:00",
+      "AIScore": 3.0,
+      "AILikelihood": [
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Conventional Commit Format",
+        "Detailed Message Length: 65 chars (+1)"
+      ],
+      "PossibleLLM": "AI Assistant (Generic)"
+    },
     {
       "Hash": "e5a99ee0411ad7401acd9c5dd588af3c1f8bb431",
       "ShortHash": "e5a99ee",

@@ -1,0 +1,18 @@
+# AI-Assisted Commit Template
+# Attribution: anthropic_Claude (copilot/claude-sonnet-4)
+# 
+# Conventional Commit Format:
+# <type>(<scope>): <description>
+#
+# Types: feat, fix, docs, style, refactor, test, chore
+# 
+# Examples:
+# feat(ai): Add comprehensive AI attribution system
+# fix(docs): Correct PowerShell module documentation  
+# docs(readme): Update installation instructions
+#
+# AI Attribution Guidelines:
+# - All AI-assisted work should be properly attributed
+# - Use conventional commit format for consistency
+# - Include relevant scope when applicable
+# - Keep descriptions clear and actionable
