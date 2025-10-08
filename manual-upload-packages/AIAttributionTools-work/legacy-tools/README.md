@@ -1,57 +1,6 @@
-# Development Tools - Universal & Project-Specific
+# Chat History Analysis Tools - WhatsApp Receipts Project
 
-This directory contains both **UNIVERSAL development tools** that work across ALL VS Code Copilot workspaces on your filesystem, and **project-specific tools** for the WhatsApp receipts processing system.
-
-## 🌐 UNIVERSAL TOOLS - PowerShell Gallery Modules
-
-**These tools work across ALL your VS Code workspaces and projects on your entire filesystem.** Install once, use everywhere for AI attribution analysis, chat history correlation, and development environment setup across your complete development ecosystem.
-
-**Scope**: Multi-workspace, cross-project, filesystem-wide tooling for ALL VS Code Copilot development
-
-### ✅ AIAttributionTools - PUBLISHED & OPERATIONAL
-Advanced AI assistance analysis for development workflows:
-```powershell
-# Install from PowerShell Gallery
-Install-Module -Name AIAttributionTools -Scope CurrentUser
-
-# Perform AI assistance analysis
-Invoke-LLMCommitAnalysis -ShowDetails
-```
-**PowerShell Gallery**: [AIAttributionTools](https://www.powershellgallery.com/packages/AIAttributionTools)
-
-### ✅ ChatAnalysisTools - PUBLISHED & OPERATIONAL  
-VS Code chat history analysis and developer workflow correlation:
-```powershell
-# Install from PowerShell Gallery
-Install-Module -Name ChatAnalysisTools -Scope CurrentUser
-
-# Analyze VS Code chat patterns
-Get-ChatAnalysisReport -ShowDetails
-```
-**PowerShell Gallery**: [ChatAnalysisTools](https://www.powershellgallery.com/packages/ChatAnalysisTools)
-
-### ✅ DeveloperEnvironmentTools - PUBLISHED & OPERATIONAL
-Development environment automation and git workflow configuration:
-```powershell
-# Install from PowerShell Gallery
-Install-Module -Name DeveloperEnvironmentTools -Scope CurrentUser
-
-# Automate development environment setup
-Initialize-DevEnvironment -ShowDetails
-```
-**PowerShell Gallery**: [DeveloperEnvironmentTools](https://www.powershellgallery.com/packages/DeveloperEnvironmentTools)
-
-**GitHub Repository**: [AI Attribution Tools](https://github.com/thisis-romar/ai-attribution-tools)  
-**Documentation**: Complete usage guides available in the dedicated repository  
-**Installation**: One-time install, works across ALL your VS Code workspaces and git repositories
-
----
-
-## 🎯 PROJECT-SPECIFIC TOOLS - WhatsApp Receipts Only
-
-**These tools are specific to the WhatsApp receipts processing project only.** They provide local functionality for this particular workspace and are not designed for cross-project use.
-
-**Scope**: WhatsApp receipts processing system only
+This directory contains tools for analyzing VS Code Copilot chat history and correlating it with git commit patterns for the WhatsApp receipts processing system project.
 
 ## Available Tools
 

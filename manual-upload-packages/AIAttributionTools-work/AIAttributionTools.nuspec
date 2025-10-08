@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>AIAttributionTools</id>
+    <version>1.1.0</version>
+    <authors>romar-j</authors>
+    <description>AI-assisted commit attribution analysis and workflow transparency tools</description>
+    <projectUrl>https://github.com/thisis-romar/ai-attribution-tools</projectUrl>
+    <tags>PowerShell Module AI Attribution Git Workflow Analysis</tags>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+  </metadata>
+  <files>
+    <file src="**" target="." />
+  </files>
+</package>

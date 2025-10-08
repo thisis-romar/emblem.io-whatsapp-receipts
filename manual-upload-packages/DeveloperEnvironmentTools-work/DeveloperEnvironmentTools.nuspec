@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>DeveloperEnvironmentTools</id>
+    <version>1.0.0</version>
+    <authors>romar-j</authors>
+    <description>Development environment automation and git workflow configuration tools</description>
+    <projectUrl>https://github.com/thisis-romar/emblem.io-whatsapp-receipts</projectUrl>
+    <tags>PowerShell Module Development Environment Git Automation</tags>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+  </metadata>
+  <files>
+    <file src="**" target="." />
+  </files>
+</package>

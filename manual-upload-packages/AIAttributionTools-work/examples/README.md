@@ -1,53 +1,51 @@
-# � WhatsApp Receipts Processing - Examples
+# 🚀 AI Attribution Tools - Usage Examples
 
-This directory contains practical examples and configurations for the WhatsApp receipts processing system.
+This directory contains practical examples of using AIAttributionTools in various scenarios.
 
 ---
 
 ## 📁 **Example Files**
 
 ### **Basic Usage**
-- [basic-analysis.ps1](basic-analysis.ps1) - Basic receipt processing analysis
+- [basic-analysis.ps1](basic-analysis.ps1) - Simple commit analysis
+- [detailed-report.ps1](detailed-report.ps1) - Comprehensive reporting
 
-### **Configuration Examples**
-- Environment configuration templates
-- WhatsApp webhook setup examples
-- Google Cloud Document AI integration patterns
+### **Advanced Scenarios**
+- [multi-repo-analysis.ps1](multi-repo-analysis.ps1) - Analyze multiple repositories
+- [ci-cd-integration.ps1](ci-cd-integration.ps1) - CI/CD pipeline integration
+- [team-dashboard.ps1](team-dashboard.ps1) - Team productivity dashboard
 
-### **Usage Scenarios**
-- Receipt processing workflows
-- Error handling examples
-- Integration patterns with external systems
+### **Automation Scripts**
+- [git-hook-example.ps1](git-hook-example.ps1) - Git hook implementation
+- [scheduled-analysis.ps1](scheduled-analysis.ps1) - Automated periodic analysis
+- [export-reports.ps1](export-reports.ps1) - Data export utilities
 
 ---
 
 ## 🎯 **Quick Examples**
 
-### **Basic Receipt Processing Test**
-```bash
-# Test webhook endpoint
-curl -X POST http://localhost:3000/webhook/whatsapp \
-  -H "Content-Type: application/json" \
-  -d '{"test": "receipt processing"}'
+### **Basic Analysis**
+```powershell
+# Install and run basic analysis
+Install-Module -Name AIAttributionTools -Scope CurrentUser
+Import-Module AIAttributionTools
+Invoke-LLMCommitAnalysis
 ```
 
-### **Environment Configuration**
-```bash
-# Copy and configure environment
-cp .env.template .env
-# Edit .env with your credentials
+### **Detailed Team Report**
+```powershell
+# Generate detailed team report
+$analysis = Invoke-LLMCommitAnalysis -Since "30 days ago" -ShowDetails
+Write-Host "Team AI Usage: $($analysis.AIPercentage)%"
+$analysis.Analysis | Where-Object { $_.Score -gt 6 } | Format-Table Commit, Score, Author
 ```
 
-### **Development Setup**
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Test health endpoint
-curl http://localhost:3000/health
+### **Export to CSV**
+```powershell
+# Export results for external analysis
+$results = Invoke-LLMCommitAnalysis -ShowDetails
+$results.Analysis | Export-Csv "ai-commits-analysis.csv" -NoTypeInformation
+Write-Host "Results exported to ai-commits-analysis.csv"
 ```
 
 ---
