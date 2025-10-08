@@ -1,0 +1,338 @@
+# 🚀 PowerShell Modules Automated Publisher
+# Complete publishing system for all PowerShell modules
+
+name: "📦 PowerShell Modules Publisher"
+
+on:
+  # Manual trigger for immediate publishing
+  workflow_dispatch:
+    inputs:
+      modules_to_publish:
+        description: 'Modules to publish (comma-separated: AIAttributionTools,ChatAnalysisTools,DeveloperEnvironmentTools or "all")'
+        required: true
+        default: "all"
+        type: string
+      force_publish:
+        description: "Force republish even if version exists"
+        required: false
+        default: false
+        type: boolean
+      environment:
+        description: "Publishing environment"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
+          - test
+
+  # Automatic triggers
+  push:
+    branches: [main]
+    paths:
+      - "modules/**"
+      - ".github/workflows/powershell-modules-publisher.yml"
+
+  # Release-based publishing
+  release:
+    types: [published]
+
+  # PR validation (test only, no publishing)
+  pull_request:
+    branches: [main]
+    paths:
+      - "modules/**"
+
+env:
+  # Global environment variables
+  POWERSHELL_TELEMETRY_OPTOUT: 1
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+jobs:
+  # Job 1: Detect changed modules and validate
+  detect-and-validate:
+    name: "🔍 Detect & Validate Modules"
+    runs-on: windows-latest
+    outputs:
+      modules-matrix: ${{ steps.detect-modules.outputs.modules-matrix }}
+      should-publish: ${{ steps.detect-modules.outputs.should-publish }}
+
+    steps:
+      - name: "📥 Checkout Repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "🔍 Detect Modules to Process"
+        id: detect-modules
+        shell: pwsh
+        run: |
+          Write-Host "🔍 Detecting modules to process..." -ForegroundColor Cyan
+
+          # Define all available modules
+          $allModules = @(
+            @{
+              name = "AIAttributionTools"
+              path = "modules/AIAttributionTools"
+              description = "AI commit attribution analysis for VS Code/GitHub Copilot environments"
+            },
+            @{
+              name = "ChatAnalysisTools"
+              path = "modules/ChatAnalysisTools" 
+              description = "VS Code chat history analysis and developer workflow correlation"
+            },
+            @{
+              name = "DeveloperEnvironmentTools"
+              path = "modules/DeveloperEnvironmentTools"
+              description = "Development environment automation and git workflow configuration"
+            }
+          )
+
+          # Determine which modules to process
+          $modulesToProcess = @()
+          $shouldPublish = $false
+
+          if ('${{ github.event_name }}' -eq 'workflow_dispatch') {
+            $inputModules = '${{ github.event.inputs.modules_to_publish }}'
+            $shouldPublish = '${{ github.event.inputs.environment }}' -eq 'production'
+            
+            if ($inputModules -eq 'all') {
+              $modulesToProcess = $allModules
+            } else {
+              $requestedModules = $inputModules -split ','
+              $modulesToProcess = $allModules | Where-Object { $_.name -in $requestedModules }
+            }
+            Write-Host "📋 Manual dispatch: Processing $($modulesToProcess.Count) modules" -ForegroundColor Yellow
+          }
+          elseif ('${{ github.event_name }}' -eq 'release') {
+            $modulesToProcess = $allModules
+            $shouldPublish = $true
+            Write-Host "🚀 Release trigger: Processing all modules" -ForegroundColor Green
+          }
+          elseif ('${{ github.event_name }}' -eq 'push') {
+            # Detect changed modules from git diff
+            $changedFiles = git diff --name-only HEAD~1 HEAD
+            $changedModules = @()
+            
+            foreach ($module in $allModules) {
+              $moduleChanged = $changedFiles | Where-Object { $_ -like "$($module.path)/*" }
+              if ($moduleChanged) {
+                $changedModules += $module
+                Write-Host "📝 Detected changes in: $($module.name)" -ForegroundColor Yellow
+              }
+            }
+            
+            $modulesToProcess = $changedModules
+            $shouldPublish = $true
+            Write-Host "⚡ Push trigger: Processing $($modulesToProcess.Count) changed modules" -ForegroundColor Green
+          }
+          else {
+            # PR or other events - validate all but don't publish
+            $modulesToProcess = $allModules  
+            $shouldPublish = $false
+            Write-Host "🧪 Validation only: Testing all modules" -ForegroundColor Blue
+          }
+
+          # Convert to JSON for matrix
+          $matrixJson = $modulesToProcess | ConvertTo-Json -Compress
+
+          Write-Host "📊 Matrix JSON: $matrixJson" -ForegroundColor Gray
+          Write-Host "🚀 Should Publish: $shouldPublish" -ForegroundColor Gray
+
+          # Set outputs
+          "modules-matrix=$matrixJson" >> $env:GITHUB_OUTPUT
+          "should-publish=$shouldPublish" >> $env:GITHUB_OUTPUT
+
+  # Job 2: Process modules in parallel using matrix strategy
+  publish-modules:
+    name: "📦 ${{ matrix.module.name }}"
+    runs-on: windows-latest
+    needs: detect-and-validate
+    if: ${{ needs.detect-and-validate.outputs.modules-matrix != '[]' && needs.detect-and-validate.outputs.modules-matrix != '' }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJson(needs.detect-and-validate.outputs.modules-matrix) }}
+
+    steps:
+      - name: "📥 Checkout Repository"
+        uses: actions/checkout@v4
+
+      - name: "🔧 Setup PowerShell Environment"
+        shell: pwsh
+        run: |
+          Write-Host "🔧 Setting up PowerShell environment..." -ForegroundColor Cyan
+          Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)" -ForegroundColor Gray
+          Write-Host "OS: $($PSVersionTable.OS)" -ForegroundColor Gray
+
+          # Install required modules for publishing
+          if (-not (Get-Module -Name PowerShellGet -ListAvailable)) {
+            Install-Module -Name PowerShellGet -Force -Scope CurrentUser
+          }
+
+      - name: "✅ Validate Module Manifest"
+        shell: pwsh
+        run: |
+          Write-Host "✅ Validating ${{ matrix.module.name }} manifest..." -ForegroundColor Yellow
+
+          $modulePath = "${{ matrix.module.path }}"
+          $manifestPath = "$modulePath/${{ matrix.module.name }}.psd1"
+
+          if (-not (Test-Path $manifestPath)) {
+            Write-Error "❌ Module manifest not found: $manifestPath"
+            exit 1
+          }
+
+          try {
+            $manifest = Test-ModuleManifest $manifestPath -ErrorAction Stop
+            Write-Host "✅ Manifest valid!" -ForegroundColor Green
+            Write-Host "   Name: $($manifest.Name)" -ForegroundColor Gray
+            Write-Host "   Version: $($manifest.Version)" -ForegroundColor Gray  
+            Write-Host "   Author: $($manifest.Author)" -ForegroundColor Gray
+            Write-Host "   Company: $($manifest.CompanyName)" -ForegroundColor Gray
+            Write-Host "   Description: $($manifest.Description)" -ForegroundColor Gray
+            
+            # Set version as output for later steps
+            "MODULE_VERSION=$($manifest.Version)" >> $env:GITHUB_ENV
+            
+          } catch {
+            Write-Error "❌ Module manifest validation failed: $($_.Exception.Message)"
+            exit 1
+          }
+
+      - name: "🧪 Test Module Import"
+        shell: pwsh
+        run: |
+          Write-Host "🧪 Testing module import for ${{ matrix.module.name }}..." -ForegroundColor Yellow
+
+          try {
+            $modulePath = "${{ matrix.module.path }}/${{ matrix.module.name }}.psd1"
+            Import-Module $modulePath -Force -ErrorAction Stop
+            Write-Host "✅ Module imported successfully!" -ForegroundColor Green
+            
+            # List exported functions
+            $exportedFunctions = Get-Command -Module ${{ matrix.module.name }} -CommandType Function
+            if ($exportedFunctions) {
+              Write-Host "📋 Exported Functions:" -ForegroundColor Cyan
+              $exportedFunctions | ForEach-Object {
+                Write-Host "   • $($_.Name)" -ForegroundColor White
+              }
+            }
+            
+          } catch {
+            Write-Error "❌ Module import failed: $($_.Exception.Message)"
+            exit 1
+          }
+
+      - name: "🔍 Check PowerShell Gallery Status"
+        if: ${{ needs.detect-and-validate.outputs.should-publish == 'true' }}
+        shell: pwsh
+        run: |
+          Write-Host "🔍 Checking PowerShell Gallery for existing version..." -ForegroundColor Yellow
+
+          try {
+            $existingModule = Find-Module -Name "${{ matrix.module.name }}" -ErrorAction SilentlyContinue
+            if ($existingModule) {
+              Write-Host "📦 Found existing module: $($existingModule.Name) v$($existingModule.Version)" -ForegroundColor Gray
+              
+              if ($existingModule.Version -eq $env:MODULE_VERSION) {
+                $forcePublish = '${{ github.event.inputs.force_publish }}' -eq 'true'
+                if (-not $forcePublish) {
+                  Write-Warning "⚠️ Version $env:MODULE_VERSION already exists. Use force_publish to republish."
+                  "SKIP_PUBLISH=true" >> $env:GITHUB_ENV
+                } else {
+                  Write-Host "🔄 Force republish enabled - will overwrite existing version" -ForegroundColor Yellow
+                }
+              } else {
+                Write-Host "🆕 New version detected: $env:MODULE_VERSION > $($existingModule.Version)" -ForegroundColor Green
+              }
+            } else {
+              Write-Host "🎯 New module - no existing version found" -ForegroundColor Green
+            }
+          } catch {
+            Write-Host "ℹ️ Could not check PowerShell Gallery status: $($_.Exception.Message)" -ForegroundColor Yellow
+          }
+
+      - name: "🚀 Publish to PowerShell Gallery"
+        if: ${{ needs.detect-and-validate.outputs.should-publish == 'true' && env.SKIP_PUBLISH != 'true' }}
+        shell: pwsh
+        env:
+          NUGET_API_KEY: ${{ secrets.POWERSHELL_GALLERY_API_KEY }}
+        run: |
+          Write-Host "🚀 Publishing ${{ matrix.module.name }} to PowerShell Gallery..." -ForegroundColor Green
+
+          if (-not $env:NUGET_API_KEY) {
+            Write-Error "❌ PowerShell Gallery API Key not found. Please set POWERSHELL_GALLERY_API_KEY secret."
+            exit 1
+          }
+
+          try {
+            $manifestPath = "${{ matrix.module.path }}/${{ matrix.module.name }}.psd1"
+            
+            # Publish with verbose output
+            Publish-Module -Path $manifestPath -NuGetApiKey $env:NUGET_API_KEY -Repository PSGallery -Verbose -Force:$${{ github.event.inputs.force_publish == 'true' }}
+            
+            Write-Host "✅ Successfully published ${{ matrix.module.name }} v$env:MODULE_VERSION!" -ForegroundColor Green
+            
+            # Verify publication
+            Start-Sleep -Seconds 10
+            $publishedModule = Find-Module -Name "${{ matrix.module.name }}" -ErrorAction SilentlyContinue
+            if ($publishedModule -and $publishedModule.Version -eq $env:MODULE_VERSION) {
+              Write-Host "✅ Verification successful: Module is live on PowerShell Gallery!" -ForegroundColor Green
+              Write-Host "🔗 URL: https://www.powershellgallery.com/packages/${{ matrix.module.name }}" -ForegroundColor Cyan
+            } else {
+              Write-Warning "⚠️ Publication verification failed - module may still be indexing"
+            }
+            
+          } catch {
+            Write-Error "❌ Publication failed: $($_.Exception.Message)"
+            Write-Host "📋 Full Error Details:" -ForegroundColor Red
+            Write-Host $_.Exception.ToString() -ForegroundColor Red
+            exit 1
+          }
+
+      - name: "📊 Generate Publication Report"
+        if: always()
+        shell: pwsh
+        run: |
+          Write-Host "📊 Publication Report for ${{ matrix.module.name }}" -ForegroundColor Cyan
+          Write-Host "=" * 50 -ForegroundColor Gray
+          Write-Host "Module: ${{ matrix.module.name }}" -ForegroundColor White
+          Write-Host "Version: $env:MODULE_VERSION" -ForegroundColor White
+          Write-Host "Description: ${{ matrix.module.description }}" -ForegroundColor Gray
+          Write-Host "Should Publish: ${{ needs.detect-and-validate.outputs.should-publish }}" -ForegroundColor White
+          Write-Host "Skip Publish: $env:SKIP_PUBLISH" -ForegroundColor White
+          Write-Host "Status: $(if ($LASTEXITCODE -eq 0) { '✅ Success' } else { '❌ Failed' })" -ForegroundColor White
+
+  # Job 3: Summary and notification
+  publication-summary:
+    name: "📋 Publication Summary"
+    runs-on: windows-latest
+    needs: [detect-and-validate, publish-modules]
+    if: always()
+
+    steps:
+      - name: "📋 Generate Summary"
+        shell: pwsh
+        run: |
+          Write-Host "📋 POWERSHELL MODULES PUBLICATION SUMMARY" -ForegroundColor Cyan
+          Write-Host "=" * 60 -ForegroundColor Gray
+
+          Write-Host "`n🎯 Event: ${{ github.event_name }}" -ForegroundColor Yellow
+          Write-Host "🔄 Should Publish: ${{ needs.detect-and-validate.outputs.should-publish }}" -ForegroundColor Yellow
+          Write-Host "📦 Modules Processed: ${{ needs.detect-and-validate.outputs.modules-matrix != '[]' && needs.detect-and-validate.outputs.modules-matrix != '' }}" -ForegroundColor Yellow
+
+          Write-Host "`n🔗 POWERSHELL GALLERY LINKS:" -ForegroundColor Green
+          Write-Host "👤 Profile: https://www.powershellgallery.com/profiles/romar-j" -ForegroundColor White
+          Write-Host "📦 AIAttributionTools: https://www.powershellgallery.com/packages/AIAttributionTools" -ForegroundColor White
+          Write-Host "📦 ChatAnalysisTools: https://www.powershellgallery.com/packages/ChatAnalysisTools" -ForegroundColor White
+          Write-Host "📦 DeveloperEnvironmentTools: https://www.powershellgallery.com/packages/DeveloperEnvironmentTools" -ForegroundColor White
+
+          Write-Host "`n📥 INSTALLATION COMMANDS:" -ForegroundColor Cyan
+          Write-Host "Install-Module AIAttributionTools" -ForegroundColor Gray
+          Write-Host "Install-Module ChatAnalysisTools" -ForegroundColor Gray
+          Write-Host "Install-Module DeveloperEnvironmentTools" -ForegroundColor Gray
+
+          $overallStatus = if ('${{ needs.publish-modules.result }}' -eq 'success' -or '${{ needs.publish-modules.result }}' -eq 'skipped') { '✅ Success' } else { '❌ Failed' }
+          Write-Host "`n🎯 Overall Status: $overallStatus" -ForegroundColor $(if ($overallStatus -like '*Success*') { 'Green' } else { 'Red' })
