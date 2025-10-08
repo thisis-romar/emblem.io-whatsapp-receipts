@@ -1,8 +1,11 @@
 # Daily AI Attribution Audit
+# Monitors AI attribution compliance for commits and provides alerts
+
 Write-Host "=== Daily AI Attribution Audit ===" -ForegroundColor Green
 
 # Check recent commits
 $recentCommits = git log --since="24 hours ago" --pretty=format:"%h | %an | %ae | %s"
+
 if ($recentCommits) {
     Write-Host "Recent commits (24h):" -ForegroundColor Yellow
     $recentCommits | ForEach-Object {
@@ -22,5 +25,5 @@ if (Get-Module -ListAvailable -Name AIAttributionTools) {
     Import-Module AIAttributionTools
     Invoke-LLMCommitAnalysis -ShowDetails
 } else {
-    Write-Host "⚠️  AIAttributionTools not installed. Install with: Install-Module AIAttributionTools" -ForegroundColor Yellow
+    Write-Host "⚠️ AIAttributionTools not installed. Install with: Install-Module AIAttributionTools" -ForegroundColor Yellow
 }

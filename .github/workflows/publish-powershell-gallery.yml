@@ -6,12 +6,12 @@ on:
   push:
     branches: [main]
     paths:
-      - "AIAttributionTools/**"
+      - "modules/AIAttributionTools/**"
       - "GitVersion.yml"
   pull_request:
     branches: [main]
     paths:
-      - "AIAttributionTools/**"
+      - "modules/AIAttributionTools/**"
   release:
     types: [published]
   workflow_dispatch:
@@ -24,7 +24,7 @@ on:
 
 env:
   MODULE_NAME: "AIAttributionTools"
-  MODULE_PATH: "./AIAttributionTools"
+  MODULE_PATH: "./modules/AIAttributionTools"
 
 jobs:
   test-module:
@@ -196,11 +196,11 @@ jobs:
       - name: Publish to PowerShell Gallery
         shell: pwsh
         env:
-          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+          PSGALLERY_API_KEY: ${{ secrets.POWERSHELL_GALLERY_API_KEY }}
         run: |
           if (-not $env:PSGALLERY_API_KEY) {
             Write-Error "❌ PowerShell Gallery API key not found in secrets"
-            Write-Error "   Add PSGALLERY_API_KEY to repository secrets"
+            Write-Error "   Add POWERSHELL_GALLERY_API_KEY to repository secrets"
             exit 1
           }
 

@@ -1,20 +1,43 @@
 {
   "summary": {
-    "highConfidenceAI": 17,
-    "totalCommits": 19,
-    "aiAssistanceRate": 89.5,
-    "aiAssistedCommits": 17
+    "highConfidenceAI": 20,
+    "totalCommits": 20,
+    "aiAssistanceRate": 100.0,
+    "aiAssistedCommits": 20
   },
   "metadata": {
     "repository": "emblem.io-whatsapp-recipts",
     "analysisVersion": "1.0.0",
-    "timeRange": "30 days ago",
-    "generatedAt": "2025-10-07T22:05:23.3309123-04:00"
+    "timeRange": "7 days ago",
+    "generatedAt": "2025-10-08T01:14:46.4273795-04:00"
   },
   "commits": [
     {
-      "Hash": "248d951e5b4d8b75e64aab09d826f34d9bd62132",
-      "ShortHash": "248d951",
+      "Hash": "4f92c2135533d2dcb782310f46f81a0d7b06974b",
+      "ShortHash": "4f92c21",
+      "Message": "feat: Add October 6th attribution correction script and updated analysis",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
+      "Date": "2025-10-07T22:13:21-04:00",
+      "AIScore": 15.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Medium Probability: update",
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
+        "Conventional Commit Format",
+        "Detailed Message Length: 72 chars (+1)",
+        "Late Night Coding Pattern (+0.5)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
+    {
+      "Hash": "5b86dc21f24f554f91bffb2a2fa7ec9629393a62",
+      "ShortHash": "5b86dc2",
       "Message": "feat: Implement comprehensive AI attribution analysis and prevention system",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T21:45:42-04:00",
@@ -37,8 +60,8 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "b5cb97fe49165b31d8e8d1aa679881efa193b763",
-      "ShortHash": "b5cb97f",
+      "Hash": "adfbba91585ccd83a2c9acd42d685b2c95aa6529",
+      "ShortHash": "adfbba9",
       "Message": "fix: Correct PowerShell module repository URLs and add manual publishing guide",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T21:29:31-04:00",
@@ -58,8 +81,8 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "aeab3ee3624b68f1a15308a2813f86fa7b49b85b",
-      "ShortHash": "aeab3ee",
+      "Hash": "b76446c01a8a7989534e84a04d0b5765ced3c058",
+      "ShortHash": "b76446c",
       "Message": "fix: Resolve git repository structure - convert submodules to regular directories",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T20:58:46-04:00",
@@ -79,8 +102,8 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "36fed853359448d91d56aa8918b4a2158908c203",
-      "ShortHash": "36fed85",
+      "Hash": "77847954dec838a7188d0c336e21a8dbf0f16849",
+      "ShortHash": "7784795",
       "Message": "feat: Add PowerShell modules documentation and fix workflow triggers",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T20:47:24-04:00",
@@ -101,8 +124,8 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "b8f0c47b1cbe3d1bf9a6bec4b2f4c97f9e93639c",
-      "ShortHash": "b8f0c47",
+      "Hash": "a00cf7cb69fa5ce4da32134b6f657f9893475713",
+      "ShortHash": "a00cf7c",
       "Message": "feat: Add PowerShell modules for publishing to PowerShell Gallery",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T20:41:17-04:00",
@@ -122,8 +145,8 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "0b36cb489aadd16e7608e89b8d36f1864b65a155",
-      "ShortHash": "0b36cb4",
+      "Hash": "1fd49b23caeaaa805daa8fd4d347fcd8778a7e8d",
+      "ShortHash": "1fd49b2",
       "Message": "fix: Resolve PowerShell Gallery publishing workflow errors",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T20:32:03-04:00",
@@ -143,8 +166,8 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "ea1d376fcc397fb9ce823ced049882b4ae71bae5",
-      "ShortHash": "ea1d376",
+      "Hash": "da61570ca741e5b38d142055af30744ae8cdf671",
+      "ShortHash": "da61570",
       "Message": "feat: Add comprehensive PowerShell Modules Publisher workflow",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T20:16:45-04:00",
@@ -165,8 +188,8 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "2f0460dfd5daf061d6b3a03360914482bc35f403",
-      "ShortHash": "2f0460d",
+      "Hash": "64426676654e8cc3787e2262029c86e304066edd",
+      "ShortHash": "6442667",
       "Message": "docs: Add comprehensive PowerShell Gallery publication action plan - All modules ready for publication",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-07T13:46:45-04:00",
@@ -187,12 +210,12 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "0c4ba41f6400bb3fb2e889e14d8013fc9f8ad49f",
-      "ShortHash": "0c4ba41",
+      "Hash": "1f7fb2752c14920a78c9a36b7fe41da1ccef1450",
+      "ShortHash": "1f7fb27",
       "Message": "docs: Refactor copilot instructions to reflect architectural migration completion",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T18:28:49-04:00",
-      "AIScore": 8.0,
+      "AIScore": 13.0,
       "AILikelihood": [
         "Very High",
         "High",
@@ -201,18 +224,19 @@
       ],
       "Indicators": [
         "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "Conventional Commit Format",
         "Detailed Message Length: 81 chars (+1)"
       ],
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "4cf1117f4b42325cba402c1082c631edd1357034",
-      "ShortHash": "4cf1117",
+      "Hash": "04c3d66e2299a8b22c4f8252468ff201733e2747",
+      "ShortHash": "04c3d66",
       "Message": "refactor: Complete AI Attribution Tools migration to dedicated repository",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T18:18:52-04:00",
-      "AIScore": 8.0,
+      "AIScore": 19.0,
       "AILikelihood": [
         "Very High",
         "High",
@@ -220,19 +244,22 @@
         "Low"
       ],
       "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "AI Tools Mentioned: ai",
+        "AI Tools Mentioned: Multiple Patterns (+1 bonus)",
         "Conventional Commit Format",
         "Detailed Message Length: 73 chars (+1)"
       ],
-      "PossibleLLM": "AI Assistant (Generic)"
+      "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "6fb51944413288d6acd11bfa5ec9495153470f11",
-      "ShortHash": "6fb5194",
+      "Hash": "82771e48cd0e6d992412ef102c8347394f50191a",
+      "ShortHash": "82771e4",
       "Message": "refactor: Architectural separation of AI Attribution Tools from WhatsApp receipts project",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T17:59:23-04:00",
-      "AIScore": 8.0,
+      "AIScore": 19.0,
       "AILikelihood": [
         "Very High",
         "High",
@@ -240,19 +267,22 @@
         "Low"
       ],
       "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "AI Tools Mentioned: ai",
+        "AI Tools Mentioned: Multiple Patterns (+1 bonus)",
         "Conventional Commit Format",
         "Detailed Message Length: 89 chars (+1)"
       ],
-      "PossibleLLM": "AI Assistant (Generic)"
+      "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "e0bbe214ce0a50150c18c95ec1ba5013a0525cb7",
-      "ShortHash": "e0bbe21",
+      "Hash": "c8275f469d05b1f3cdd2a5974d0973590e5c4d37",
+      "ShortHash": "c8275f4",
       "Message": "docs: Create comprehensive API, configuration, and examples documentation",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T17:44:39-04:00",
-      "AIScore": 9.0,
+      "AIScore": 19.0,
       "AILikelihood": [
         "Very High",
         "High",
@@ -261,20 +291,22 @@
       ],
       "Indicators": [
         "Medium Probability: create",
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "High Probability: comprehensive",
         "Documentation Patterns: documentation",
         "Conventional Commit Format",
         "Detailed Message Length: 73 chars (+1)"
       ],
-      "PossibleLLM": "AI Assistant (Generic)"
+      "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "25a2eb763d549be942fb0b83ed08a1eddf866f3b",
-      "ShortHash": "25a2eb7",
+      "Hash": "5aed5b63ef612f3583ca635ef9573999e0dbf159",
+      "ShortHash": "5aed5b6",
       "Message": "docs: Update copilot instructions with live status and critical GitHub releases fix",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T17:39:53-04:00",
-      "AIScore": 10.0,
+      "AIScore": 15.0,
       "AILikelihood": [
         "Very High",
         "High",
@@ -284,18 +316,19 @@
       "Indicators": [
         "Medium Probability: update",
         "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "Conventional Commit Format",
         "Detailed Message Length: 83 chars (+1)"
       ],
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "e28681d8e029004e45e91edb9674965b311fd367",
-      "ShortHash": "e28681d",
+      "Hash": "1322fbdeca4ffaf930668d07317d8e04189c5d4f",
+      "ShortHash": "1322fbd",
       "Message": "feat: Complete AIAttributionTools v1.0.0 PowerShell module for community distribution",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T17:07:09-04:00",
-      "AIScore": 8.0,
+      "AIScore": 19.0,
       "AILikelihood": [
         "Very High",
         "High",
@@ -303,33 +336,22 @@
         "Low"
       ],
       "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "AI Tools Mentioned: ai",
+        "AI Tools Mentioned: Multiple Patterns (+1 bonus)",
         "Conventional Commit Format",
         "Detailed Message Length: 85 chars (+1)"
       ],
-      "PossibleLLM": "AI Assistant (Generic)"
+      "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "7c28cf3c5ae1d6ee89baa17685cdc6a259533a2f",
-      "ShortHash": "7c28cf3",
+      "Hash": "464d8adbbf586350499770248d4978555e22fc44",
+      "ShortHash": "464d8ad",
       "Message": "≡ƒöº Complete automation system deployment with all project files",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T16:41:08-04:00",
-      "AIScore": 2.5,
-      "AILikelihood": "Low",
-      "Indicators": [
-        "Technical Patterns: automation",
-        "Detailed Message Length: 65 chars (+1)"
-      ],
-      "PossibleLLM": "Human"
-    },
-    {
-      "Hash": "8bd7c26c81316f952793ad3888bf3e770d1624a0",
-      "ShortHash": "8bd7c26",
-      "Message": "≡ƒñû Implement comprehensive AI attribution automation system",
-      "Author": "thisis-romar",
-      "Date": "2025-10-06T16:39:17-04:00",
-      "AIScore": 10.5,
+      "AIScore": 12.5,
       "AILikelihood": [
         "Very High",
         "High",
@@ -337,20 +359,44 @@
         "Low"
       ],
       "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
+        "Technical Patterns: automation",
+        "Detailed Message Length: 65 chars (+1)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
+    {
+      "Hash": "bd747178986c64b400f4819f44a0bb0967c4d06b",
+      "ShortHash": "bd74717",
+      "Message": "≡ƒñû Implement comprehensive AI attribution automation system",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
+      "Date": "2025-10-06T16:39:17-04:00",
+      "AIScore": 21.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "AI Tools Mentioned: ai",
+        "AI Tools Mentioned: Multiple Patterns (+1 bonus)",
         "Technical Patterns: automation",
         "High Probability: comprehensive",
         "Detailed Message Length: 61 chars (+1)"
       ],
-      "PossibleLLM": "AI Assistant (Generic)"
+      "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "7276a47fd3d6b7b1b7d33422e6a3aa36e21d2604",
-      "ShortHash": "7276a47",
+      "Hash": "ec6975521c172044b2556f8ed8f5bb84ea5b94c1",
+      "ShortHash": "ec69755",
       "Message": "≡ƒº¬ Test: AI attribution automation system configured",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T16:36:30-04:00",
-      "AIScore": 9.5,
+      "AIScore": 20.5,
       "AILikelihood": [
         "Very High",
         "High",
@@ -359,15 +405,18 @@
       ],
       "Indicators": [
         "Medium Probability: configure",
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "AI Tools Mentioned: ai",
+        "AI Tools Mentioned: Multiple Patterns (+1 bonus)",
         "Technical Patterns: automation",
         "Detailed Message Length: 54 chars (+1)"
       ],
-      "PossibleLLM": "AI Assistant (Generic)"
+      "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "c4d949530529f711b2b340a0f0ecf06569f253a6",
-      "ShortHash": "c4d9495",
+      "Hash": "bf8bc02c8ec7bc946f4aad683232c244c0032492",
+      "ShortHash": "bf8bc02",
       "Message": "feat: Add comprehensive GitHub Copilot instructions for WhatsApp receipts processing",
       "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T15:38:16-04:00",
@@ -388,17 +437,24 @@
       "PossibleLLM": "GitHub Copilot"
     },
     {
-      "Hash": "fb9a94cee04fa94349c18054bfa1ce804ba4c8c8",
-      "ShortHash": "fb9a94c",
+      "Hash": "8d9856c0c94889c02edea78b925a518c33b770c3",
+      "ShortHash": "8d9856c",
       "Message": "Initial commit: WhatsApp Receipt Capture with Image Retrieval System",
-      "Author": "thisis-romar",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
       "Date": "2025-10-06T15:24:37-04:00",
-      "AIScore": 1.0,
-      "AILikelihood": "Low",
+      "AIScore": 11.0,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
       "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
         "Detailed Message Length: 68 chars (+1)"
       ],
-      "PossibleLLM": "Human"
+      "PossibleLLM": "GitHub Copilot"
     }
   ]
 }

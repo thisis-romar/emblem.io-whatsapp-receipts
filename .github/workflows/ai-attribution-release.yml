@@ -245,7 +245,7 @@ jobs:
       - name: Publish to PowerShell Gallery
         shell: pwsh
         env:
-          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+          PSGALLERY_API_KEY: ${{ secrets.POWERSHELL_GALLERY_API_KEY }}
         run: |
           # Extract package
           Expand-Archive -Path "*.zip" -DestinationPath "./extracted" -Force
