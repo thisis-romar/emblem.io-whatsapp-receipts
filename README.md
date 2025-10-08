@@ -366,9 +366,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For questions, issues, or feature requests:
 
-1. Check existing [GitHub Issues](https://github.com/your-repo/issues)
+1. Check existing [GitHub Issues](https://github.com/thisis-romar/emblem.io-whatsapp-receipts/issues)
 2. Create a new issue with detailed description
-3. Contact support team at support@yourcompany.com
+3. Contact the development team via GitHub Issues for technical support
 
 ---
 

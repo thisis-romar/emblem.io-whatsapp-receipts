@@ -1,23 +1,47 @@
-# Developer Environment Tools
+# 🔄 Developer Environment Tools - MIGRATED
 
-Professional PowerShell module for development environment setup, automation, and git workflow configuration.
+## ⚠️ Important Notice: Module Migrated
 
-## Overview
+**Developer Environment Tools** has been **migrated and published on PowerShell Gallery** for universal use across all development environments and VS Code workspaces.
 
-Developer Environment Tools provides comprehensive capabilities for automating development environment setup, configuring git workflows, and managing development toolchains across projects and teams.
+[![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/DeveloperEnvironmentTools?color=blue&logo=powershell)](https://www.powershellgallery.com/packages/DeveloperEnvironmentTools)
+[![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/DeveloperEnvironmentTools?color=green)](https://www.powershellgallery.com/packages/DeveloperEnvironmentTools)
 
-## Features
+---
 
-- **Automated Environment Setup**: Complete development environment configuration
-- **Git Workflow Automation**: Pre-commit hooks, git hooks, and workflow automation
-- **Multi-Platform Support**: Windows, macOS, and Linux compatibility
-- **Team Standardization**: Consistent development environments across team members
-- **CI/CD Integration**: GitHub Actions and workflow automation
-- **Extensible Configuration**: Customizable setup profiles and configurations
+## 🚀 **Current Installation (Use This)**
 
-## Quick Start
+### **PowerShell Gallery Installation**
+```powershell
+# Install from PowerShell Gallery
+Install-Module -Name DeveloperEnvironmentTools -Scope CurrentUser
 
-### Installation
+# Use across ALL your development environments
+Initialize-DevEnvironment -ShowDetails
+```
+
+### **Links**
+- **PowerShell Gallery**: [DeveloperEnvironmentTools](https://www.powershellgallery.com/packages/DeveloperEnvironmentTools)
+- **Part of AI Attribution Tools Suite**: [GitHub Repository](https://github.com/thisis-romar/ai-attribution-tools)
+
+---
+
+## 📋 **Migration Benefits**
+
+- ✅ **Universal Tool**: Works across ALL your development projects and VS Code workspaces
+- ✅ **Professional Distribution**: Published on PowerShell Gallery
+- ✅ **Environment Automation**: Standardized setup across any development project
+- ✅ **Git Workflow Integration**: Pre-commit hooks and automation for any repository
+- ✅ **Multi-Platform Support**: Windows, macOS, and Linux compatibility
+- ✅ **Team Standardization**: Consistent development environments across projects
+
+---
+
+## 🔗 **This WhatsApp Project**
+
+This directory contains **legacy development files** from when Developer Environment Tools was part of the WhatsApp receipts processing project.
+
+**For current usage**, use the PowerShell Gallery installation above which works across all your development projects.
 
 ```powershell
 # Install from PowerShell Gallery (recommended)

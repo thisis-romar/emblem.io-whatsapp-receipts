@@ -1,22 +1,46 @@
-# Chat Analysis Tools
+# 🔄 Chat Analysis Tools - MIGRATED
 
-Professional PowerShell module for VS Code chat history analysis and developer workflow correlation.
+## ⚠️ Important Notice: Module Migrated
 
-## Overview
+**Chat Analysis Tools** has been **migrated and published on PowerShell Gallery** for universal use across all VS Code workspaces.
 
-Chat Analysis Tools provides comprehensive capabilities for analyzing VS Code Copilot chat histories and correlating them with git commit patterns, helping teams understand and optimize their AI-assisted development workflows.
+[![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/ChatAnalysisTools?color=blue&logo=powershell)](https://www.powershellgallery.com/packages/ChatAnalysisTools)
+[![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/ChatAnalysisTools?color=green)](https://www.powershellgallery.com/packages/ChatAnalysisTools)
 
-## Features
+---
 
-- **VS Code Chat History Parsing**: Extract and analyze conversations from VS Code Copilot
-- **Git Commit Correlation**: Link chat conversations with corresponding code commits  
-- **Workflow Analysis**: Identify patterns in AI-assisted development processes
-- **Comprehensive Reporting**: Generate detailed analysis reports in JSON and HTML formats
-- **Multi-Project Support**: Analyze workflows across multiple repositories and projects
+## 🚀 **Current Installation (Use This)**
 
-## Quick Start
+### **PowerShell Gallery Installation**
+```powershell
+# Install from PowerShell Gallery
+Install-Module -Name ChatAnalysisTools -Scope CurrentUser
 
-### Installation
+# Use across ALL your VS Code workspaces
+Get-ChatAnalysisReport -ShowDetails
+```
+
+### **Links**
+- **PowerShell Gallery**: [ChatAnalysisTools](https://www.powershellgallery.com/packages/ChatAnalysisTools)
+- **Part of AI Attribution Tools Suite**: [GitHub Repository](https://github.com/thisis-romar/ai-attribution-tools)
+
+---
+
+## 📋 **Migration Benefits**
+
+- ✅ **Universal Tool**: Works across ALL your VS Code Copilot workspaces
+- ✅ **Professional Distribution**: Published on PowerShell Gallery
+- ✅ **VS Code Chat History Analysis**: Analyze conversations across any project
+- ✅ **Git Correlation**: Link chat patterns with commits in any repository
+- ✅ **Multi-Project Support**: Use the same tool across your entire development ecosystem
+
+---
+
+## 🔗 **This WhatsApp Project**
+
+This directory contains **legacy development files** from when Chat Analysis Tools was part of the WhatsApp receipts processing project.
+
+**For current usage**, use the PowerShell Gallery installation above which works across all your development projects.
 
 ```powershell
 # Install from PowerShell Gallery (recommended)

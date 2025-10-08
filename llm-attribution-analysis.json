@@ -1,17 +1,66 @@
 {
   "summary": {
-    "highConfidenceAI": 20,
-    "totalCommits": 20,
+    "highConfidenceAI": 22,
+    "totalCommits": 22,
     "aiAssistanceRate": 100.0,
-    "aiAssistedCommits": 20
+    "aiAssistedCommits": 22
   },
   "metadata": {
     "repository": "emblem.io-whatsapp-recipts",
     "analysisVersion": "1.0.0",
-    "timeRange": "7 days ago",
-    "generatedAt": "2025-10-08T01:14:46.4273795-04:00"
+    "timeRange": "30 days ago",
+    "generatedAt": "2025-10-08T01:43:10.6647240-04:00"
   },
   "commits": [
+    {
+      "Hash": "3d21c946848bd23bfe8b940c30c6e28912d9a796",
+      "ShortHash": "3d21c94",
+      "Message": "docs: Clarify universal vs project-specific tool distinction and complete README documentation structure",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
+      "Date": "2025-10-08T01:41:59-04:00",
+      "AIScore": 16.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
+        "Documentation Patterns: readme",
+        "Documentation Patterns: documentation",
+        "Conventional Commit Format",
+        "Detailed Message Length: 104 chars (+2)",
+        "Late Night Coding Pattern (+0.5)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
+    {
+      "Hash": "73d8763faf4c51d9b31721a550480e28a4c54b54",
+      "ShortHash": "73d8763",
+      "Message": "feat: Update copilot instructions with validated AI attribution analysis",
+      "Author": "anthropic_Claude (copilot/claude-sonnet-4)",
+      "Date": "2025-10-08T01:25:53-04:00",
+      "AIScore": 21.5,
+      "AILikelihood": [
+        "Very High",
+        "High",
+        "Medium",
+        "Low"
+      ],
+      "Indicators": [
+        "Medium Probability: update",
+        "AI Tools Mentioned: copilot",
+        "AI Tools Mentioned: claude",
+        "AI Tools Mentioned: ai",
+        "AI Tools Mentioned: Multiple Patterns (+1 bonus)",
+        "Conventional Commit Format",
+        "Detailed Message Length: 72 chars (+1)",
+        "Late Night Coding Pattern (+0.5)"
+      ],
+      "PossibleLLM": "GitHub Copilot"
+    },
     {
       "Hash": "4f92c2135533d2dcb782310f46f81a0d7b06974b",
       "ShortHash": "4f92c21",

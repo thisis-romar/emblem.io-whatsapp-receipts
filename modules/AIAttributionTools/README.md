@@ -1,43 +1,48 @@
-# 🤖 AI Attribution Tools
+# 🔄 AI Attribution Tools - MIGRATED
+
+## ⚠️ Important Notice: Module Migrated
+
+**AI Attribution Tools** has been **migrated to its own dedicated repository** and is now published on PowerShell Gallery for community use across all VS Code workspaces.
 
 [![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/AIAttributionTools?color=blue&logo=powershell)](https://www.powershellgallery.com/packages/AIAttributionTools)
 [![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/AIAttributionTools?color=green)](https://www.powershellgallery.com/packages/AIAttributionTools)
 [![GitHub Release](https://img.shields.io/github/v/release/thisis-romar/ai-attribution-tools?include_prereleases&sort=semver)](https://github.com/thisis-romar/ai-attribution-tools/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-**Advanced AI-assisted commit detection and attribution management for GitHub development workflows.**
-
-Perfect for teams using **VS Code Copilot**, **ChatGPT**, **Claude AI**, and other AI coding assistants who need **transparency** and **compliance** in their development processes.
 
 ---
 
-## 🎯 **Why AI Attribution Tools?**
+## 🚀 **Current Installation (Use This)**
 
-As AI-assisted development becomes mainstream, **proper attribution** is crucial for:
-
-- ✅ **Compliance & Transparency** - Clear audit trails for AI assistance
-- ✅ **Team Collaboration** - Understanding AI vs. human contributions  
-- ✅ **Quality Assurance** - Tracking AI assistance patterns and effectiveness
-- ✅ **Legal Protection** - Proper documentation for intellectual property
-- ✅ **Workflow Optimization** - Analyzing AI development patterns
-
----
-
-## 🚀 **Quick Installation**
-
-### **Option 1: PowerShell Gallery (Recommended)**
+### **PowerShell Gallery (Recommended)**
 ```powershell
-# Install for current user
+# Install from PowerShell Gallery
 Install-Module -Name AIAttributionTools -Scope CurrentUser
 
-# Import and start using
-Import-Module AIAttributionTools
-Invoke-LLMCommitAnalysis
+# Use across ALL your VS Code workspaces
+Invoke-LLMCommitAnalysis -ShowDetails
 ```
 
-### **Option 2: VS Code Copilot Integration (Windows 11)**
-```powershell
-# One-click setup for VS Code + Copilot environments
+### **Dedicated Repository**
+- **GitHub**: [AI Attribution Tools](https://github.com/thisis-romar/ai-attribution-tools)
+- **PowerShell Gallery**: [AIAttributionTools](https://www.powershellgallery.com/packages/AIAttributionTools)
+- **Documentation**: Complete usage guides in the dedicated repository
+
+---
+
+## 📋 **Migration Benefits**
+
+- ✅ **Universal Tool**: Works across ALL your VS Code Copilot workspaces
+- ✅ **Community Access**: Available to developers across multiple projects
+- ✅ **Professional Distribution**: Published on PowerShell Gallery
+- ✅ **Dedicated Support**: Focused repository with comprehensive documentation
+- ✅ **Independent Versioning**: Proper semantic versioning and releases
+
+---
+
+## � **This WhatsApp Project**
+
+This directory contains **legacy development files** from when AI Attribution Tools was part of the WhatsApp receipts processing project. 
+
+**For current usage**, use the PowerShell Gallery installation above which works across all your development projects.
 irm https://raw.githubusercontent.com/thisis-romar/ai-attribution-tools/main/Install-AIAttributionTools.ps1 | iex
 ```
 
